@@ -95,3 +95,26 @@ def test_review_flow_refuses_an_unknown_item():
     )
     assert "item" not in out and any(e["type"] == "ValueError" for e in out["$errors"].values())
     assert store.reviews() == []
+
+
+def test_every_client_has_goals_with_a_gap_a_status_and_ranked_actions():
+    from scenarios.graph import goals_flow
+
+    engine = Operon(goals_flow, params={"client_id": None, "scope": None})
+    for cid in fixtures.client_ids():
+        out = asyncio.run(engine.run(inputs={"client_id": cid, "scope": "family"}))
+        assert "$errors" not in out, out.get("$errors")
+        assert out["goals"] and any(g["followed"] for g in out["goals"]), cid
+        for g in out["goals"]:
+            x = g["goal"]
+            assert x["status"] in ("on_track", "at_risk", "off_track")
+            assert x["gap"] == x["need"] - x["have"] or x["have"] == 0
+            assert len(x["actions"]) <= 3
+            cuts = [a["cut"] for a in x["actions"]]
+            assert cuts == sorted(cuts, reverse=True)
+
+
+def test_a_tried_assumption_moves_the_goal():
+    base = sim("C01", "tuition")["goal"]
+    dearer = sim("C01", "tuition", {"per_year": 3 * TY})["goal"]
+    assert dearer["need"] > base["need"] and dearer["gap"] > base["gap"]

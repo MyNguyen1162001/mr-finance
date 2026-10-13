@@ -6,9 +6,11 @@ POST /api/declare   {client_id, message, session_id} ──► declare_flow ─�
 POST /api/risk      {client_id, answers} ──► risk_flow ──► the next question, or the profile
 POST /api/alerts    {client_id, scope?} ──► alerts_flow ──► policies, macro, infrastructure, in VND
 POST /api/scenario  {client_id, scenario, params?} ──► scenario_flow ──► numbers, a light and a heavy option
+POST /api/goals     {client_id, scope?} ──► goals_flow ──► every life goal: need, have, gap, status, actions
 POST /api/review/propose ──► propose_flow (the RM queue) · POST /api/review/decide ──► review_flow
 07:00 daily, and `operonx run policy_sweep` ──► the policy_sweep job: alerts_flow for every client
-GET  /api/clients, POST /api/reset, GET /    ──► app/web.py (the sample clients, the UI)
+GET  /api/clients, /api/advisory, POST /api/reset, GET / ──► app/web.py (the sample clients, the
+     specialist team and the advisory track record, the UI)
 
 Each service runs its graph as is: the JSON body fills the graph's parameters, and the reply is
 its outputs (`{"dashboard": ...}`, `{"read": ...}`, ...). Every service and job of the product is
@@ -26,7 +28,7 @@ from impact.graph import alerts_flow
 from impact.ops import every_client
 from review.graph import propose_flow, review_flow
 from risk.graph import risk_flow
-from scenarios.graph import scenario_flow
+from scenarios.graph import goals_flow, scenario_flow
 from statements.checks import items_match
 from statements.graph import sample_flow, statement_flow
 
@@ -71,6 +73,12 @@ APP = Application(
             http("POST", "/api/scenario", port=PORT),
             graph=scenario_flow,
             description="POST {client_id, scenario, params?, scope?}: a life event or a stress test, with two options.",
+        ),
+        Service(
+            "goals",
+            http("POST", "/api/goals", port=PORT),
+            graph=goals_flow,
+            description="POST {client_id, scope?}: every life goal, with its gap, status and actions.",
         ),
         Service(
             "propose",

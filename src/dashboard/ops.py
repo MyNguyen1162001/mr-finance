@@ -76,14 +76,27 @@ def net_worth(holdings: list) -> dict:
 
 @op
 def allocation(holdings: list) -> dict:
-    """Assets by group, largest first."""
+    """Assets by group, largest first, each with its profit against what was paid (over the
+    holdings whose cost is known; ``pnl`` is None when no holding of the group has one)."""
     groups: Dict[str, float] = defaultdict(float)
+    marked: Dict[str, float] = defaultdict(float)
+    paid: Dict[str, float] = defaultdict(float)
     for h in _assets(holdings):
-        groups[GROUPS.get(h["class"], CLASSES.get(h["class"], h["class"]))] += h["value"]
+        g = GROUPS.get(h["class"], CLASSES.get(h["class"], h["class"]))
+        groups[g] += h["value"]
+        if h["cost"] is not None:
+            marked[g] += h["value"]
+            paid[g] += h["cost"]
     total = sum(groups.values())
     return {
         "allocation": [
-            {"group": g, "value": v, "share": v / total if total else 0}
+            {
+                "group": g,
+                "value": v,
+                "share": v / total if total else 0,
+                "pnl": marked[g] - paid[g] if g in paid else None,
+                "return": (marked[g] - paid[g]) / paid[g] if paid.get(g) else None,
+            }
             for g, v in sorted(groups.items(), key=lambda kv: -kv[1])
         ]
     }

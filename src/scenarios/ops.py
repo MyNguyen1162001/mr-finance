@@ -9,7 +9,7 @@ from operonx import op
 from scenarios import _sim
 from wealth import fixtures, profile
 
-NOTE = "Nội dung là mô phỏng; khuyến nghị cụ thể phải qua RM duyệt."
+NOTE = "Nội dung là mô phỏng; khuyến nghị cụ thể phải qua chuyên gia duyệt."
 
 
 @op
@@ -42,6 +42,8 @@ def _run(client_id: str, scenario: str, params: Dict[str, Any], holdings: list, 
     meta = _sim.SCENARIOS[scenario]
     pic = _sim.Pic(holdings=holdings, profile=profile, market=fixtures.market())
     out = meta["run"](pic, params or {})
+    if out.get("goal") and scenario != "business_cash":  # an emergency is not tracked month by month
+        out["goal"]["tracking"] = _sim.track(meta["run"], pic, out["params"], scenario)
     return {
         "client_id": client_id,
         "scenario": scenario,
@@ -69,3 +71,37 @@ def stress(client_id: str, scenario: str, params: dict, holdings: list, profile:
 @op
 def answer(life_result: dict = None, stress_result: dict = None) -> dict:
     return {"result": life_result or stress_result}
+
+
+@op
+def check_client(client_id: str = None, scope: str = None) -> dict:
+    """What a caller sent, checked: a known client, a scope."""
+    client_id = str(client_id or "")
+    if client_id not in fixtures.client_ids(members=True):
+        raise ValueError(f"no client {client_id!r}")
+    return {"client_id": client_id, "scope": scope or "personal"}
+
+
+@op
+def goals(client_id: str, holdings: list, profile: dict) -> dict:
+    """Every life event read as a goal, on the client's own data with its default assumptions:
+    what it needs, what the client has for it, the gap, a status and up to three actions. The ones
+    fitting the client's persona are the ones followed until the client sets others."""
+    pic = _sim.Pic(holdings=holdings, profile=profile, market=fixtures.market())
+    out = []
+    for sid, meta in _sim.SCENARIOS.items():
+        if meta["kind"] != "life" or not meta.get("stage"):
+            continue
+        res = meta["run"](pic, {})
+        out.append(
+            {
+                "id": sid,
+                "title": meta["title"],
+                "stage": meta["stage"],
+                "stage_label": _sim.STAGES[meta["stage"]],
+                "followed": profile["persona_hint"] in meta["personas"],
+                "params": res["params"],
+                "goal": res["goal"],
+            }
+        )
+    return {"goals": out, "stages": _sim.STAGES, "as_of": pic.market["as_of"]}

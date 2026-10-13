@@ -6,6 +6,9 @@ it is served here, by the asgi service app/main.py mounts last.
 
 from __future__ import annotations
 
+import json
+from functools import lru_cache
+
 from starlette.applications import Starlette
 from starlette.requests import Request
 from starlette.responses import JSONResponse
@@ -55,6 +58,33 @@ async def reviews(request: Request) -> JSONResponse:
     return JSONResponse({"items": [{**r, "client_name": names.get(r["client_id"], r["client_id"])} for r in rows]})
 
 
+@lru_cache(maxsize=1)
+def _advisory() -> dict:
+    return json.loads((DATA / "advisory.json").read_text(encoding="utf-8"))
+
+
+async def advisory(request: Request) -> JSONResponse:
+    """A client's specialist team and advisory track record (data/advisory.json, mock), with the
+    risk test they took in the demo, if any, as the last point of their risk-appetite history."""
+    cid = request.query_params.get("client_id") or ""
+    data = _advisory()
+    if cid not in data["team"]:
+        return JSONResponse({"error": f"no client {cid!r}"}, status_code=404)
+    track = json.loads(json.dumps(data["tracking"][cid]))
+    test = store.result(cid, "risk")
+    if test:
+        track["risk_tests"].append(
+            {
+                "date": test.get("taken"),
+                "tolerance": round(test["tolerance"]),
+                "capacity": round(test["capacity"]),
+                "profile": (test.get("profile") or {}).get("name"),
+                "live": True,
+            }
+        )
+    return JSONResponse({"team": data["team"][cid], "tracking": track, "as_of": data["as_of"], "note": data["note"]})
+
+
 async def reset(request: Request) -> JSONResponse:
     store.reset()
     return JSONResponse({"reset": True})
@@ -66,6 +96,7 @@ app = Starlette(
         Route("/api/clients", clients),
         Route("/api/scenarios", scenarios),
         Route("/api/review", reviews),
+        Route("/api/advisory", advisory),
         Route("/api/reset", reset, methods=["POST"]),
         # the sample statements a demo uploads
         Mount("/samples", app=StaticFiles(directory=DATA / "samples"), name="samples"),

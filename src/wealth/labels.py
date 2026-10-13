@@ -41,7 +41,7 @@ SOURCES = {
     "open_api": {"label": "Open API (ngân hàng / CTCK khác)", "tier": 2, "what": "Số dư, danh mục"},
     "statement": {"label": "Sao kê tải lên", "tier": 2, "what": "Đọc sao kê PDF / Excel"},
     "declared": {
-        "label": "Khách hàng tự khai",
+        "label": "Bạn tự khai",
         "tier": 3,
         "what": "Vàng, BĐS ngoài hệ thống, cổ phần, bảo hiểm",
     },
@@ -50,7 +50,7 @@ SOURCES = {
 TRUST = {
     "verified": "Đã xác thực",
     "statement": "Từ sao kê",
-    "declared": "KH tự khai",
+    "declared": "Bạn tự khai",
 }
 
 # how much an analysis leans on a holding, by where it came from

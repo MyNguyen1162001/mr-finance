@@ -1,0 +1,2129 @@
+{
+ "as_of": "2026-10-09",
+ "note": "Dữ liệu giả định cho demo: tên, số điện thoại, e-mail, địa chỉ và kết quả tư vấn đều không có thật.",
+ "team": {
+  "C01": {
+   "rm": {
+    "role": "Relationship manager",
+    "role_vi": "Chuyên viên quan hệ khách hàng",
+    "name": "Hoàng Hải Yến",
+    "email": "yen.hoang@tcbwealth.example",
+    "phone": "+84 28 3000 1101",
+    "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+    "hours": "8:00 – 18:00, thứ Hai – thứ Bảy"
+   },
+   "specialists": [
+    {
+     "id": "real_estate",
+     "role": "Real estate specialist",
+     "role_vi": "Chuyên gia bất động sản",
+     "name": "Phan Đức Thịnh",
+     "email": "thinh.phan@tcbwealth.example",
+     "phone": "+84 28 3000 1201",
+     "covers": [
+      "Định giá BĐS (OneHousing)",
+      "Mua, bán, cho thuê",
+      "Vay thế chấp, đòn bẩy BĐS"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "global",
+     "role": "Global investment specialist",
+     "role_vi": "Chuyên gia đầu tư toàn cầu",
+     "name": "Lâm Bảo Ngọc",
+     "email": "ngoc.lam@tcbwealth.example",
+     "phone": "+84 28 3000 1202",
+     "covers": [
+      "Cổ phiếu, trái phiếu, quỹ (TCBS, Techcom Capital)",
+      "Tài sản ở nước ngoài",
+      "Tỷ giá, ngoại tệ"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "insurance",
+     "role": "Insurance specialist",
+     "role_vi": "Chuyên gia bảo hiểm",
+     "name": "Đặng Thu Trang",
+     "email": "trang.dang@tcbwealth.example",
+     "phone": "+84 28 3000 1203",
+     "covers": [
+      "Bảo hiểm nhân thọ, sức khỏe",
+      "Bảo vệ khoản vay",
+      "Quỹ học vấn cho con"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "banking",
+     "role": "Banking specialist",
+     "role_vi": "Chuyên gia ngân hàng",
+     "name": "Vũ Hoàng Long",
+     "email": "long.vu@tcbwealth.example",
+     "phone": "+84 28 3000 1204",
+     "covers": [
+      "Tiền gửi, thẻ, thanh toán",
+      "Tín dụng cá nhân và doanh nghiệp",
+      "Chuyển tiền quốc tế"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "private",
+     "role": "Private specialist",
+     "role_vi": "Chuyên gia Private Banking",
+     "name": "Trịnh Khánh Linh",
+     "email": "linh.trinh@tcbwealth.example",
+     "phone": "+84 28 3000 1205",
+     "covers": [
+      "Thừa kế, chuyển giao tài sản",
+      "Pháp lý, thuế cá nhân",
+      "Quản lý tài sản gia đình"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    }
+   ]
+  },
+  "C02": {
+   "rm": {
+    "role": "Relationship manager",
+    "role_vi": "Chuyên viên quan hệ khách hàng",
+    "name": "Ngô Minh Châu",
+    "email": "chau.ngo@tcbwealth.example",
+    "phone": "+84 28 3000 1109",
+    "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+    "hours": "8:00 – 18:00, thứ Hai – thứ Bảy"
+   },
+   "specialists": [
+    {
+     "id": "real_estate",
+     "role": "Real estate specialist",
+     "role_vi": "Chuyên gia bất động sản",
+     "name": "Phan Đức Thịnh",
+     "email": "thinh.phan@tcbwealth.example",
+     "phone": "+84 28 3000 1201",
+     "covers": [
+      "Định giá BĐS (OneHousing)",
+      "Mua, bán, cho thuê",
+      "Vay thế chấp, đòn bẩy BĐS"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "global",
+     "role": "Global investment specialist",
+     "role_vi": "Chuyên gia đầu tư toàn cầu",
+     "name": "Lâm Bảo Ngọc",
+     "email": "ngoc.lam@tcbwealth.example",
+     "phone": "+84 28 3000 1202",
+     "covers": [
+      "Cổ phiếu, trái phiếu, quỹ (TCBS, Techcom Capital)",
+      "Tài sản ở nước ngoài",
+      "Tỷ giá, ngoại tệ"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "insurance",
+     "role": "Insurance specialist",
+     "role_vi": "Chuyên gia bảo hiểm",
+     "name": "Đặng Thu Trang",
+     "email": "trang.dang@tcbwealth.example",
+     "phone": "+84 28 3000 1203",
+     "covers": [
+      "Bảo hiểm nhân thọ, sức khỏe",
+      "Bảo vệ khoản vay",
+      "Quỹ học vấn cho con"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "banking",
+     "role": "Banking specialist",
+     "role_vi": "Chuyên gia ngân hàng",
+     "name": "Vũ Hoàng Long",
+     "email": "long.vu@tcbwealth.example",
+     "phone": "+84 28 3000 1204",
+     "covers": [
+      "Tiền gửi, thẻ, thanh toán",
+      "Tín dụng cá nhân và doanh nghiệp",
+      "Chuyển tiền quốc tế"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "private",
+     "role": "Private specialist",
+     "role_vi": "Chuyên gia Private Banking",
+     "name": "Trịnh Khánh Linh",
+     "email": "linh.trinh@tcbwealth.example",
+     "phone": "+84 28 3000 1205",
+     "covers": [
+      "Thừa kế, chuyển giao tài sản",
+      "Pháp lý, thuế cá nhân",
+      "Quản lý tài sản gia đình"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    }
+   ]
+  },
+  "C03": {
+   "rm": {
+    "role": "Relationship manager",
+    "role_vi": "Chuyên viên quan hệ khách hàng",
+    "name": "Trần Quốc Bảo",
+    "email": "bao.tran@tcbwealth.example",
+    "phone": "+84 24 3000 2201",
+    "office": "Wealth Center, tầng 12, 191 Bà Triệu, Hai Bà Trưng, Hà Nội (địa chỉ giả định)",
+    "hours": "8:00 – 18:00, thứ Hai – thứ Bảy"
+   },
+   "specialists": [
+    {
+     "id": "real_estate",
+     "role": "Real estate specialist",
+     "role_vi": "Chuyên gia bất động sản",
+     "name": "Phan Đức Thịnh",
+     "email": "thinh.phan@tcbwealth.example",
+     "phone": "+84 28 3000 1201",
+     "covers": [
+      "Định giá BĐS (OneHousing)",
+      "Mua, bán, cho thuê",
+      "Vay thế chấp, đòn bẩy BĐS"
+     ],
+     "office": "Wealth Center, tầng 12, 191 Bà Triệu, Hai Bà Trưng, Hà Nội (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "global",
+     "role": "Global investment specialist",
+     "role_vi": "Chuyên gia đầu tư toàn cầu",
+     "name": "Lâm Bảo Ngọc",
+     "email": "ngoc.lam@tcbwealth.example",
+     "phone": "+84 28 3000 1202",
+     "covers": [
+      "Cổ phiếu, trái phiếu, quỹ (TCBS, Techcom Capital)",
+      "Tài sản ở nước ngoài",
+      "Tỷ giá, ngoại tệ"
+     ],
+     "office": "Wealth Center, tầng 12, 191 Bà Triệu, Hai Bà Trưng, Hà Nội (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "insurance",
+     "role": "Insurance specialist",
+     "role_vi": "Chuyên gia bảo hiểm",
+     "name": "Đặng Thu Trang",
+     "email": "trang.dang@tcbwealth.example",
+     "phone": "+84 28 3000 1203",
+     "covers": [
+      "Bảo hiểm nhân thọ, sức khỏe",
+      "Bảo vệ khoản vay",
+      "Quỹ học vấn cho con"
+     ],
+     "office": "Wealth Center, tầng 12, 191 Bà Triệu, Hai Bà Trưng, Hà Nội (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "banking",
+     "role": "Banking specialist",
+     "role_vi": "Chuyên gia ngân hàng",
+     "name": "Vũ Hoàng Long",
+     "email": "long.vu@tcbwealth.example",
+     "phone": "+84 28 3000 1204",
+     "covers": [
+      "Tiền gửi, thẻ, thanh toán",
+      "Tín dụng cá nhân và doanh nghiệp",
+      "Chuyển tiền quốc tế"
+     ],
+     "office": "Wealth Center, tầng 12, 191 Bà Triệu, Hai Bà Trưng, Hà Nội (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "private",
+     "role": "Private specialist",
+     "role_vi": "Chuyên gia Private Banking",
+     "name": "Trịnh Khánh Linh",
+     "email": "linh.trinh@tcbwealth.example",
+     "phone": "+84 28 3000 1205",
+     "covers": [
+      "Thừa kế, chuyển giao tài sản",
+      "Pháp lý, thuế cá nhân",
+      "Quản lý tài sản gia đình"
+     ],
+     "office": "Wealth Center, tầng 12, 191 Bà Triệu, Hai Bà Trưng, Hà Nội (địa chỉ giả định)",
+     "lead": false
+    }
+   ]
+  },
+  "C04": {
+   "rm": {
+    "role": "Relationship manager",
+    "role_vi": "Chuyên viên quan hệ khách hàng",
+    "name": "Hoàng Hải Yến",
+    "email": "yen.hoang@tcbwealth.example",
+    "phone": "+84 28 3000 1101",
+    "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+    "hours": "8:00 – 18:00, thứ Hai – thứ Bảy"
+   },
+   "specialists": [
+    {
+     "id": "real_estate",
+     "role": "Real estate specialist",
+     "role_vi": "Chuyên gia bất động sản",
+     "name": "Phan Đức Thịnh",
+     "email": "thinh.phan@tcbwealth.example",
+     "phone": "+84 28 3000 1201",
+     "covers": [
+      "Định giá BĐS (OneHousing)",
+      "Mua, bán, cho thuê",
+      "Vay thế chấp, đòn bẩy BĐS"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "global",
+     "role": "Global investment specialist",
+     "role_vi": "Chuyên gia đầu tư toàn cầu",
+     "name": "Lâm Bảo Ngọc",
+     "email": "ngoc.lam@tcbwealth.example",
+     "phone": "+84 28 3000 1202",
+     "covers": [
+      "Cổ phiếu, trái phiếu, quỹ (TCBS, Techcom Capital)",
+      "Tài sản ở nước ngoài",
+      "Tỷ giá, ngoại tệ"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "insurance",
+     "role": "Insurance specialist",
+     "role_vi": "Chuyên gia bảo hiểm",
+     "name": "Đặng Thu Trang",
+     "email": "trang.dang@tcbwealth.example",
+     "phone": "+84 28 3000 1203",
+     "covers": [
+      "Bảo hiểm nhân thọ, sức khỏe",
+      "Bảo vệ khoản vay",
+      "Quỹ học vấn cho con"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "banking",
+     "role": "Banking specialist",
+     "role_vi": "Chuyên gia ngân hàng",
+     "name": "Vũ Hoàng Long",
+     "email": "long.vu@tcbwealth.example",
+     "phone": "+84 28 3000 1204",
+     "covers": [
+      "Tiền gửi, thẻ, thanh toán",
+      "Tín dụng cá nhân và doanh nghiệp",
+      "Chuyển tiền quốc tế"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "private",
+     "role": "Private specialist",
+     "role_vi": "Chuyên gia Private Banking",
+     "name": "Trịnh Khánh Linh",
+     "email": "linh.trinh@tcbwealth.example",
+     "phone": "+84 28 3000 1205",
+     "covers": [
+      "Thừa kế, chuyển giao tài sản",
+      "Pháp lý, thuế cá nhân",
+      "Quản lý tài sản gia đình"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    }
+   ]
+  },
+  "C05": {
+   "rm": {
+    "role": "Relationship manager",
+    "role_vi": "Chuyên viên quan hệ khách hàng",
+    "name": "Hoàng Hải Yến",
+    "email": "yen.hoang@tcbwealth.example",
+    "phone": "+84 28 3000 1101",
+    "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+    "hours": "8:00 – 18:00, thứ Hai – thứ Bảy"
+   },
+   "specialists": [
+    {
+     "id": "real_estate",
+     "role": "Real estate specialist",
+     "role_vi": "Chuyên gia bất động sản",
+     "name": "Phan Đức Thịnh",
+     "email": "thinh.phan@tcbwealth.example",
+     "phone": "+84 28 3000 1201",
+     "covers": [
+      "Định giá BĐS (OneHousing)",
+      "Mua, bán, cho thuê",
+      "Vay thế chấp, đòn bẩy BĐS"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "global",
+     "role": "Global investment specialist",
+     "role_vi": "Chuyên gia đầu tư toàn cầu",
+     "name": "Lâm Bảo Ngọc",
+     "email": "ngoc.lam@tcbwealth.example",
+     "phone": "+84 28 3000 1202",
+     "covers": [
+      "Cổ phiếu, trái phiếu, quỹ (TCBS, Techcom Capital)",
+      "Tài sản ở nước ngoài",
+      "Tỷ giá, ngoại tệ"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "insurance",
+     "role": "Insurance specialist",
+     "role_vi": "Chuyên gia bảo hiểm",
+     "name": "Đặng Thu Trang",
+     "email": "trang.dang@tcbwealth.example",
+     "phone": "+84 28 3000 1203",
+     "covers": [
+      "Bảo hiểm nhân thọ, sức khỏe",
+      "Bảo vệ khoản vay",
+      "Quỹ học vấn cho con"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    },
+    {
+     "id": "banking",
+     "role": "Banking specialist",
+     "role_vi": "Chuyên gia ngân hàng",
+     "name": "Vũ Hoàng Long",
+     "email": "long.vu@tcbwealth.example",
+     "phone": "+84 28 3000 1204",
+     "covers": [
+      "Tiền gửi, thẻ, thanh toán",
+      "Tín dụng cá nhân và doanh nghiệp",
+      "Chuyển tiền quốc tế"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": true
+    },
+    {
+     "id": "private",
+     "role": "Private specialist",
+     "role_vi": "Chuyên gia Private Banking",
+     "name": "Trịnh Khánh Linh",
+     "email": "linh.trinh@tcbwealth.example",
+     "phone": "+84 28 3000 1205",
+     "covers": [
+      "Thừa kế, chuyển giao tài sản",
+      "Pháp lý, thuế cá nhân",
+      "Quản lý tài sản gia đình"
+     ],
+     "office": "Wealth Center, tầng 9, 23 Lê Duẩn, Quận 1, TP.HCM (địa chỉ giả định)",
+     "lead": false
+    }
+   ]
+  }
+ },
+ "tracking": {
+  "C01": {
+   "summary": {
+    "advice": 11,
+    "right": 6,
+    "wrong": 1,
+    "missed": 2,
+    "open": 1,
+    "gained": 619000000.0,
+    "lost": -43000000.0,
+    "missed_value": 116000000.0,
+    "missed_news": 3,
+    "missed_news_value": -98000000.0
+   },
+   "agents": [
+    {
+     "id": "news",
+     "name": "AI News Reader",
+     "name_vi": "AI đọc báo, tổng hợp tin",
+     "score": 80,
+     "trend": [
+      0.764,
+      0.853,
+      0.849,
+      0.757,
+      0.876,
+      0.878,
+      0.8,
+      0.773,
+      0.807,
+      0.836,
+      0.835,
+      0.801
+     ],
+     "metrics": [
+      {
+       "label": "Bài báo, văn bản đã đọc",
+       "value": "15.209"
+      },
+      {
+       "label": "Tin liên quan gửi khách hàng",
+       "value": "173"
+      },
+      {
+       "label": "Tin quan trọng bị bỏ lỡ",
+       "value": "3",
+       "tone": "bad"
+      },
+      {
+       "label": "Thời gian từ lúc tin ra đến lúc gửi",
+       "value": "2,6 giờ"
+      }
+     ]
+    },
+    {
+     "id": "impact",
+     "name": "AI Impact Assessor",
+     "name_vi": "AI đánh giá tác động lên danh mục",
+     "score": 77,
+     "trend": [
+      0.78,
+      0.701,
+      0.765,
+      0.775,
+      0.778,
+      0.774,
+      0.781,
+      0.709,
+      0.766,
+      0.739,
+      0.815,
+      0.815
+     ],
+     "metrics": [
+      {
+       "label": "Đánh giá tác động đã chạy",
+       "value": "328"
+      },
+      {
+       "label": "Đúng chiều tăng / giảm",
+       "value": "85%"
+      },
+      {
+       "label": "Sai số ước tính trung bình",
+       "value": "±23%"
+      },
+      {
+       "label": "Sai nhiều nhất",
+       "value": "Bảng giá đất TP.HCM",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "planner",
+     "name": "AI Planning Advisor",
+     "name_vi": "AI tư vấn kế hoạch và hành động",
+     "score": 72,
+     "trend": [
+      0.714,
+      0.741,
+      0.707,
+      0.754,
+      0.745,
+      0.736,
+      0.73,
+      0.694,
+      0.769,
+      0.794,
+      0.726,
+      0.809
+     ],
+     "metrics": [
+      {
+       "label": "Khuyến nghị đưa ra",
+       "value": "11"
+      },
+      {
+       "label": "Khách hàng đã thực hiện",
+       "value": "8"
+      },
+      {
+       "label": "Đúng / sai",
+       "value": "6 / 1"
+      },
+      {
+       "label": "Hành động bỏ lỡ",
+       "value": "2",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "chat",
+     "name": "AI Client Chat",
+     "name_vi": "AI chat với khách hàng",
+     "score": 83,
+     "trend": [
+      0.814,
+      0.886,
+      0.902,
+      0.825,
+      0.875,
+      0.831,
+      0.825,
+      0.901,
+      0.855,
+      0.884,
+      0.925,
+      0.916
+     ],
+     "metrics": [
+      {
+       "label": "Hội thoại",
+       "value": "70"
+      },
+      {
+       "label": "Khai báo đã ghi nhận",
+       "value": "10"
+      },
+      {
+       "label": "Chuyển sang chuyên gia",
+       "value": "11%"
+      },
+      {
+       "label": "Mức hài lòng",
+       "value": "4,4 / 5"
+      }
+     ]
+    }
+   ],
+   "advice": [
+    {
+     "date": "2026-10-24",
+     "agent": "planner",
+     "text": "Khóa tỷ giá cho học phí kỳ tới bằng tiền gửi ngoại tệ",
+     "outcome": "open",
+     "value": 0.0
+    },
+    {
+     "date": "2026-09-26",
+     "agent": "chat",
+     "text": "Cập nhật giá đất Long Thành sau quyết định khai thác sân bay",
+     "outcome": "right",
+     "value": 0.0
+    },
+    {
+     "date": "2026-08-10",
+     "agent": "planner",
+     "text": "Tăng tỷ trọng cổ phiếu khi VN-Index vượt 1.400",
+     "outcome": "avoided",
+     "value": 0.0
+    },
+    {
+     "date": "2026-06-18",
+     "agent": "news",
+     "text": "Nâng hạng thị trường: mua thêm quỹ cổ phiếu trước công bố",
+     "outcome": "right",
+     "value": 129000000.0
+    },
+    {
+     "date": "2026-05-10",
+     "agent": "planner",
+     "text": "Cơ cấu khoản vay thả nổi sang cố định 3 năm",
+     "outcome": "missed",
+     "value": 57000000.0
+    },
+    {
+     "date": "2026-04-26",
+     "agent": "impact",
+     "text": "Cổ phiếu FPT hưởng lợi từ hợp đồng AI, tăng tỷ trọng",
+     "outcome": "right",
+     "value": 147000000.0
+    },
+    {
+     "date": "2026-03-21",
+     "agent": "planner",
+     "text": "Mua ngoại tệ dần cho học phí du học",
+     "outcome": "missed",
+     "value": 59000000.0
+    },
+    {
+     "date": "2026-02-04",
+     "agent": "news",
+     "text": "Giá vàng miếng sẽ giảm khi NHNN tăng cung, bán bớt 30%",
+     "outcome": "wrong",
+     "value": -43000000.0
+    },
+    {
+     "date": "2026-01-16",
+     "agent": "planner",
+     "text": "Gửi kỳ hạn 12 tháng khi lãi suất đỉnh 6,1%",
+     "outcome": "right",
+     "value": 67000000.0
+    },
+    {
+     "date": "2025-12-25",
+     "agent": "impact",
+     "text": "Giảm trái phiếu BĐS trước kỳ đáo hạn lô lớn của tổ chức phát hành",
+     "outcome": "right",
+     "value": 89000000.0
+    },
+    {
+     "date": "2025-11-09",
+     "agent": "planner",
+     "text": "Chốt lời một nửa cổ phiếu ngân hàng sau nhịp tăng 25%",
+     "outcome": "right",
+     "value": 187000000.0
+    }
+   ],
+   "missed_news": [
+    {
+     "date": "2026-02-14",
+     "title": "NHNN tăng cung vàng miếng, giá SJC giảm 8% trong hai tuần",
+     "signal": "2026-01-28 · dự thảo sửa Nghị định 24 được đăng lấy ý kiến",
+     "why": "Nguồn dự thảo chưa có trong danh sách nguồn theo dõi",
+     "impact": -45000000.0
+    },
+    {
+     "date": "2026-05-06",
+     "title": "Lãi suất cho vay thả nổi tăng 1,2 điểm sau đợt hút tiền của NHNN",
+     "signal": "2026-04-22 · lãi suất liên ngân hàng tăng 3 phiên liền",
+     "why": "Tín hiệu vĩ mô chưa được nối với khoản vay của khách",
+     "impact": -32000000.0
+    },
+    {
+     "date": "2026-07-18",
+     "title": "Bảng giá đất mới của TP.HCM áp dụng sớm hơn dự kiến",
+     "signal": "2026-07-02 · HĐND thành phố đưa vào chương trình kỳ họp",
+     "why": "Đánh giá xác suất thông qua thấp hơn thực tế",
+     "impact": -21000000.0
+    }
+   ],
+   "engagement": {
+    "months": [
+     "2025-11",
+     "2025-12",
+     "2026-01",
+     "2026-02",
+     "2026-03",
+     "2026-04",
+     "2026-05",
+     "2026-06",
+     "2026-07",
+     "2026-08",
+     "2026-09",
+     "2026-10"
+    ],
+    "minutes": [
+     63,
+     68,
+     62,
+     59,
+     59,
+     81,
+     61,
+     82,
+     79,
+     52,
+     59,
+     70
+    ],
+    "days": [
+     9,
+     12,
+     11,
+     10,
+     10,
+     15,
+     10,
+     14,
+     12,
+     9,
+     10,
+     13
+    ],
+    "alerts_opened": "81%",
+    "streak": 21
+   },
+   "risk_tests": [
+    {
+     "date": "2025-04-12",
+     "tolerance": 64,
+     "capacity": 70,
+     "profile": "Tăng trưởng"
+    },
+    {
+     "date": "2025-10-20",
+     "tolerance": 58,
+     "capacity": 66,
+     "profile": "Cân bằng"
+    },
+    {
+     "date": "2026-04-18",
+     "tolerance": 61,
+     "capacity": 63,
+     "profile": "Tăng trưởng"
+    }
+   ]
+  },
+  "C02": {
+   "summary": {
+    "advice": 12,
+    "right": 6,
+    "wrong": 2,
+    "missed": 2,
+    "open": 1,
+    "gained": 1327000000.0,
+    "lost": -258000000.0,
+    "missed_value": 298000000.0,
+    "missed_news": 3,
+    "missed_news_value": -235000000.0
+   },
+   "agents": [
+    {
+     "id": "news",
+     "name": "AI News Reader",
+     "name_vi": "AI đọc báo, tổng hợp tin",
+     "score": 88,
+     "trend": [
+      0.82,
+      0.828,
+      0.854,
+      0.829,
+      0.812,
+      0.793,
+      0.852,
+      0.77,
+      0.816,
+      0.805,
+      0.788,
+      0.838
+     ],
+     "metrics": [
+      {
+       "label": "Bài báo, văn bản đã đọc",
+       "value": "17.993"
+      },
+      {
+       "label": "Tin liên quan gửi khách hàng",
+       "value": "150"
+      },
+      {
+       "label": "Tin quan trọng bị bỏ lỡ",
+       "value": "3",
+       "tone": "bad"
+      },
+      {
+       "label": "Thời gian từ lúc tin ra đến lúc gửi",
+       "value": "1,8 giờ"
+      }
+     ]
+    },
+    {
+     "id": "impact",
+     "name": "AI Impact Assessor",
+     "name_vi": "AI đánh giá tác động lên danh mục",
+     "score": 78,
+     "trend": [
+      0.738,
+      0.743,
+      0.725,
+      0.701,
+      0.704,
+      0.704,
+      0.768,
+      0.822,
+      0.785,
+      0.836,
+      0.832,
+      0.842
+     ],
+     "metrics": [
+      {
+       "label": "Đánh giá tác động đã chạy",
+       "value": "263"
+      },
+      {
+       "label": "Đúng chiều tăng / giảm",
+       "value": "83%"
+      },
+      {
+       "label": "Sai số ước tính trung bình",
+       "value": "±25%"
+      },
+      {
+       "label": "Sai nhiều nhất",
+       "value": "Bảng giá đất TP.HCM",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "planner",
+     "name": "AI Planning Advisor",
+     "name_vi": "AI tư vấn kế hoạch và hành động",
+     "score": 72,
+     "trend": [
+      0.716,
+      0.781,
+      0.706,
+      0.781,
+      0.758,
+      0.758,
+      0.75,
+      0.799,
+      0.734,
+      0.815,
+      0.709,
+      0.724
+     ],
+     "metrics": [
+      {
+       "label": "Khuyến nghị đưa ra",
+       "value": "12"
+      },
+      {
+       "label": "Khách hàng đã thực hiện",
+       "value": "9"
+      },
+      {
+       "label": "Đúng / sai",
+       "value": "6 / 2"
+      },
+      {
+       "label": "Hành động bỏ lỡ",
+       "value": "2",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "chat",
+     "name": "AI Client Chat",
+     "name_vi": "AI chat với khách hàng",
+     "score": 91,
+     "trend": [
+      0.814,
+      0.864,
+      0.883,
+      0.851,
+      0.875,
+      0.82,
+      0.898,
+      0.838,
+      0.866,
+      0.933,
+      0.825,
+      0.94
+     ],
+     "metrics": [
+      {
+       "label": "Hội thoại",
+       "value": "84"
+      },
+      {
+       "label": "Khai báo đã ghi nhận",
+       "value": "12"
+      },
+      {
+       "label": "Chuyển sang chuyên gia",
+       "value": "17%"
+      },
+      {
+       "label": "Mức hài lòng",
+       "value": "4,5 / 5"
+      }
+     ]
+    }
+   ],
+   "advice": [
+    {
+     "date": "2026-10-13",
+     "agent": "planner",
+     "text": "Khóa tỷ giá cho học phí kỳ tới bằng tiền gửi ngoại tệ",
+     "outcome": "open",
+     "value": 0.0
+    },
+    {
+     "date": "2026-09-24",
+     "agent": "chat",
+     "text": "Cập nhật giá đất Long Thành sau quyết định khai thác sân bay",
+     "outcome": "right",
+     "value": 0.0
+    },
+    {
+     "date": "2026-08-16",
+     "agent": "planner",
+     "text": "Tăng tỷ trọng cổ phiếu khi VN-Index vượt 1.400",
+     "outcome": "avoided",
+     "value": 0.0
+    },
+    {
+     "date": "2026-07-14",
+     "agent": "impact",
+     "text": "Cổ phiếu VNM phục hồi sau báo cáo quý, giữ nguyên",
+     "outcome": "wrong",
+     "value": -165000000.0
+    },
+    {
+     "date": "2026-06-26",
+     "agent": "news",
+     "text": "Nâng hạng thị trường: mua thêm quỹ cổ phiếu trước công bố",
+     "outcome": "right",
+     "value": 249000000.0
+    },
+    {
+     "date": "2026-05-03",
+     "agent": "planner",
+     "text": "Cơ cấu khoản vay thả nổi sang cố định 3 năm",
+     "outcome": "missed",
+     "value": 137000000.0
+    },
+    {
+     "date": "2026-04-24",
+     "agent": "impact",
+     "text": "Cổ phiếu FPT hưởng lợi từ hợp đồng AI, tăng tỷ trọng",
+     "outcome": "right",
+     "value": 319000000.0
+    },
+    {
+     "date": "2026-03-14",
+     "agent": "planner",
+     "text": "Mua ngoại tệ dần cho học phí du học",
+     "outcome": "missed",
+     "value": 161000000.0
+    },
+    {
+     "date": "2026-02-14",
+     "agent": "news",
+     "text": "Giá vàng miếng sẽ giảm khi NHNN tăng cung, bán bớt 30%",
+     "outcome": "wrong",
+     "value": -93000000.0
+    },
+    {
+     "date": "2026-01-05",
+     "agent": "planner",
+     "text": "Gửi kỳ hạn 12 tháng khi lãi suất đỉnh 6,1%",
+     "outcome": "right",
+     "value": 177000000.0
+    },
+    {
+     "date": "2025-12-03",
+     "agent": "impact",
+     "text": "Giảm trái phiếu BĐS trước kỳ đáo hạn lô lớn của tổ chức phát hành",
+     "outcome": "right",
+     "value": 196000000.0
+    },
+    {
+     "date": "2025-11-09",
+     "agent": "planner",
+     "text": "Chốt lời một nửa cổ phiếu ngân hàng sau nhịp tăng 25%",
+     "outcome": "right",
+     "value": 386000000.0
+    }
+   ],
+   "missed_news": [
+    {
+     "date": "2026-02-14",
+     "title": "NHNN tăng cung vàng miếng, giá SJC giảm 8% trong hai tuần",
+     "signal": "2026-01-28 · dự thảo sửa Nghị định 24 được đăng lấy ý kiến",
+     "why": "Nguồn dự thảo chưa có trong danh sách nguồn theo dõi",
+     "impact": -108000000.0
+    },
+    {
+     "date": "2026-05-06",
+     "title": "Lãi suất cho vay thả nổi tăng 1,2 điểm sau đợt hút tiền của NHNN",
+     "signal": "2026-04-22 · lãi suất liên ngân hàng tăng 3 phiên liền",
+     "why": "Tín hiệu vĩ mô chưa được nối với khoản vay của khách",
+     "impact": -77000000.0
+    },
+    {
+     "date": "2026-07-18",
+     "title": "Bảng giá đất mới của TP.HCM áp dụng sớm hơn dự kiến",
+     "signal": "2026-07-02 · HĐND thành phố đưa vào chương trình kỳ họp",
+     "why": "Đánh giá xác suất thông qua thấp hơn thực tế",
+     "impact": -50000000.0
+    }
+   ],
+   "engagement": {
+    "months": [
+     "2025-11",
+     "2025-12",
+     "2026-01",
+     "2026-02",
+     "2026-03",
+     "2026-04",
+     "2026-05",
+     "2026-06",
+     "2026-07",
+     "2026-08",
+     "2026-09",
+     "2026-10"
+    ],
+    "minutes": [
+     82,
+     86,
+     84,
+     80,
+     70,
+     83,
+     74,
+     104,
+     107,
+     90,
+     107,
+     118
+    ],
+    "days": [
+     14,
+     15,
+     13,
+     14,
+     10,
+     15,
+     14,
+     16,
+     18,
+     15,
+     17,
+     19
+    ],
+    "alerts_opened": "68%",
+    "streak": 15
+   },
+   "risk_tests": [
+    {
+     "date": "2025-03-02",
+     "tolerance": 72,
+     "capacity": 81,
+     "profile": "Tăng trưởng"
+    },
+    {
+     "date": "2025-09-15",
+     "tolerance": 68,
+     "capacity": 78,
+     "profile": "Tăng trưởng"
+    },
+    {
+     "date": "2026-03-30",
+     "tolerance": 55,
+     "capacity": 74,
+     "profile": "Cân bằng"
+    }
+   ]
+  },
+  "C03": {
+   "summary": {
+    "advice": 9,
+    "right": 5,
+    "wrong": 2,
+    "missed": 2,
+    "open": 0,
+    "gained": 225000000.0,
+    "lost": -40000000.0,
+    "missed_value": 41000000.0,
+    "missed_news": 3,
+    "missed_news_value": -34000000.0
+   },
+   "agents": [
+    {
+     "id": "news",
+     "name": "AI News Reader",
+     "name_vi": "AI đọc báo, tổng hợp tin",
+     "score": 78,
+     "trend": [
+      0.768,
+      0.852,
+      0.84,
+      0.8,
+      0.822,
+      0.875,
+      0.807,
+      0.837,
+      0.886,
+      0.784,
+      0.795,
+      0.883
+     ],
+     "metrics": [
+      {
+       "label": "Bài báo, văn bản đã đọc",
+       "value": "15.737"
+      },
+      {
+       "label": "Tin liên quan gửi khách hàng",
+       "value": "162"
+      },
+      {
+       "label": "Tin quan trọng bị bỏ lỡ",
+       "value": "3",
+       "tone": "bad"
+      },
+      {
+       "label": "Thời gian từ lúc tin ra đến lúc gửi",
+       "value": "3,0 giờ"
+      }
+     ]
+    },
+    {
+     "id": "impact",
+     "name": "AI Impact Assessor",
+     "name_vi": "AI đánh giá tác động lên danh mục",
+     "score": 77,
+     "trend": [
+      0.735,
+      0.749,
+      0.759,
+      0.697,
+      0.723,
+      0.729,
+      0.817,
+      0.753,
+      0.806,
+      0.834,
+      0.831,
+      0.828
+     ],
+     "metrics": [
+      {
+       "label": "Đánh giá tác động đã chạy",
+       "value": "321"
+      },
+      {
+       "label": "Đúng chiều tăng / giảm",
+       "value": "81%"
+      },
+      {
+       "label": "Sai số ước tính trung bình",
+       "value": "±23%"
+      },
+      {
+       "label": "Sai nhiều nhất",
+       "value": "Bảng giá đất TP.HCM",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "planner",
+     "name": "AI Planning Advisor",
+     "name_vi": "AI tư vấn kế hoạch và hành động",
+     "score": 77,
+     "trend": [
+      0.671,
+      0.729,
+      0.715,
+      0.766,
+      0.702,
+      0.751,
+      0.758,
+      0.73,
+      0.779,
+      0.793,
+      0.754,
+      0.755
+     ],
+     "metrics": [
+      {
+       "label": "Khuyến nghị đưa ra",
+       "value": "9"
+      },
+      {
+       "label": "Khách hàng đã thực hiện",
+       "value": "7"
+      },
+      {
+       "label": "Đúng / sai",
+       "value": "5 / 2"
+      },
+      {
+       "label": "Hành động bỏ lỡ",
+       "value": "2",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "chat",
+     "name": "AI Client Chat",
+     "name_vi": "AI chat với khách hàng",
+     "score": 91,
+     "trend": [
+      0.878,
+      0.858,
+      0.841,
+      0.83,
+      0.828,
+      0.8,
+      0.912,
+      0.811,
+      0.926,
+      0.834,
+      0.92,
+      0.882
+     ],
+     "metrics": [
+      {
+       "label": "Hội thoại",
+       "value": "40"
+      },
+      {
+       "label": "Khai báo đã ghi nhận",
+       "value": "13"
+      },
+      {
+       "label": "Chuyển sang chuyên gia",
+       "value": "8%"
+      },
+      {
+       "label": "Mức hài lòng",
+       "value": "4,4 / 5"
+      }
+     ]
+    }
+   ],
+   "advice": [
+    {
+     "date": "2026-07-04",
+     "agent": "impact",
+     "text": "Cổ phiếu VNM phục hồi sau báo cáo quý, giữ nguyên",
+     "outcome": "wrong",
+     "value": -25000000.0
+    },
+    {
+     "date": "2026-06-19",
+     "agent": "news",
+     "text": "Nâng hạng thị trường: mua thêm quỹ cổ phiếu trước công bố",
+     "outcome": "right",
+     "value": 41000000.0
+    },
+    {
+     "date": "2026-05-10",
+     "agent": "planner",
+     "text": "Cơ cấu khoản vay thả nổi sang cố định 3 năm",
+     "outcome": "missed",
+     "value": 18000000.0
+    },
+    {
+     "date": "2026-04-23",
+     "agent": "impact",
+     "text": "Cổ phiếu FPT hưởng lợi từ hợp đồng AI, tăng tỷ trọng",
+     "outcome": "right",
+     "value": 58000000.0
+    },
+    {
+     "date": "2026-03-26",
+     "agent": "planner",
+     "text": "Mua ngoại tệ dần cho học phí du học",
+     "outcome": "missed",
+     "value": 23000000.0
+    },
+    {
+     "date": "2026-02-24",
+     "agent": "news",
+     "text": "Giá vàng miếng sẽ giảm khi NHNN tăng cung, bán bớt 30%",
+     "outcome": "wrong",
+     "value": -15000000.0
+    },
+    {
+     "date": "2026-01-15",
+     "agent": "planner",
+     "text": "Gửi kỳ hạn 12 tháng khi lãi suất đỉnh 6,1%",
+     "outcome": "right",
+     "value": 22000000.0
+    },
+    {
+     "date": "2025-12-25",
+     "agent": "impact",
+     "text": "Giảm trái phiếu BĐS trước kỳ đáo hạn lô lớn của tổ chức phát hành",
+     "outcome": "right",
+     "value": 30000000.0
+    },
+    {
+     "date": "2025-11-03",
+     "agent": "planner",
+     "text": "Chốt lời một nửa cổ phiếu ngân hàng sau nhịp tăng 25%",
+     "outcome": "right",
+     "value": 74000000.0
+    }
+   ],
+   "missed_news": [
+    {
+     "date": "2026-02-14",
+     "title": "NHNN tăng cung vàng miếng, giá SJC giảm 8% trong hai tuần",
+     "signal": "2026-01-28 · dự thảo sửa Nghị định 24 được đăng lấy ý kiến",
+     "why": "Nguồn dự thảo chưa có trong danh sách nguồn theo dõi",
+     "impact": -16000000.0
+    },
+    {
+     "date": "2026-05-06",
+     "title": "Lãi suất cho vay thả nổi tăng 1,2 điểm sau đợt hút tiền của NHNN",
+     "signal": "2026-04-22 · lãi suất liên ngân hàng tăng 3 phiên liền",
+     "why": "Tín hiệu vĩ mô chưa được nối với khoản vay của khách",
+     "impact": -11000000.0
+    },
+    {
+     "date": "2026-07-18",
+     "title": "Bảng giá đất mới của TP.HCM áp dụng sớm hơn dự kiến",
+     "signal": "2026-07-02 · HĐND thành phố đưa vào chương trình kỳ họp",
+     "why": "Đánh giá xác suất thông qua thấp hơn thực tế",
+     "impact": -7000000.0
+    }
+   ],
+   "engagement": {
+    "months": [
+     "2025-11",
+     "2025-12",
+     "2026-01",
+     "2026-02",
+     "2026-03",
+     "2026-04",
+     "2026-05",
+     "2026-06",
+     "2026-07",
+     "2026-08",
+     "2026-09",
+     "2026-10"
+    ],
+    "minutes": [
+     41,
+     60,
+     63,
+     52,
+     72,
+     72,
+     82,
+     70,
+     68,
+     63,
+     55,
+     77
+    ],
+    "days": [
+     7,
+     11,
+     9,
+     8,
+     13,
+     13,
+     13,
+     12,
+     10,
+     12,
+     9,
+     12
+    ],
+    "alerts_opened": "82%",
+    "streak": 16
+   },
+   "risk_tests": [
+    {
+     "date": "2025-06-10",
+     "tolerance": 84,
+     "capacity": 52,
+     "profile": "Cân bằng"
+    },
+    {
+     "date": "2026-01-08",
+     "tolerance": 88,
+     "capacity": 55,
+     "profile": "Cân bằng"
+    },
+    {
+     "date": "2026-07-02",
+     "tolerance": 79,
+     "capacity": 58,
+     "profile": "Cân bằng"
+    }
+   ]
+  },
+  "C04": {
+   "summary": {
+    "advice": 10,
+    "right": 4,
+    "wrong": 2,
+    "missed": 2,
+    "open": 1,
+    "gained": 317000000.0,
+    "lost": -75000000.0,
+    "missed_value": 102000000.0,
+    "missed_news": 3,
+    "missed_news_value": -79000000.0
+   },
+   "agents": [
+    {
+     "id": "news",
+     "name": "AI News Reader",
+     "name_vi": "AI đọc báo, tổng hợp tin",
+     "score": 82,
+     "trend": [
+      0.78,
+      0.806,
+      0.861,
+      0.858,
+      0.827,
+      0.838,
+      0.814,
+      0.808,
+      0.835,
+      0.839,
+      0.787,
+      0.903
+     ],
+     "metrics": [
+      {
+       "label": "Bài báo, văn bản đã đọc",
+       "value": "20.242"
+      },
+      {
+       "label": "Tin liên quan gửi khách hàng",
+       "value": "124"
+      },
+      {
+       "label": "Tin quan trọng bị bỏ lỡ",
+       "value": "3",
+       "tone": "bad"
+      },
+      {
+       "label": "Thời gian từ lúc tin ra đến lúc gửi",
+       "value": "3,4 giờ"
+      }
+     ]
+    },
+    {
+     "id": "impact",
+     "name": "AI Impact Assessor",
+     "name_vi": "AI đánh giá tác động lên danh mục",
+     "score": 84,
+     "trend": [
+      0.702,
+      0.695,
+      0.768,
+      0.804,
+      0.718,
+      0.757,
+      0.751,
+      0.767,
+      0.79,
+      0.82,
+      0.783,
+      0.798
+     ],
+     "metrics": [
+      {
+       "label": "Đánh giá tác động đã chạy",
+       "value": "304"
+      },
+      {
+       "label": "Đúng chiều tăng / giảm",
+       "value": "76%"
+      },
+      {
+       "label": "Sai số ước tính trung bình",
+       "value": "±25%"
+      },
+      {
+       "label": "Sai nhiều nhất",
+       "value": "Bảng giá đất TP.HCM",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "planner",
+     "name": "AI Planning Advisor",
+     "name_vi": "AI tư vấn kế hoạch và hành động",
+     "score": 70,
+     "trend": [
+      0.711,
+      0.666,
+      0.67,
+      0.729,
+      0.753,
+      0.736,
+      0.777,
+      0.795,
+      0.74,
+      0.769,
+      0.796,
+      0.791
+     ],
+     "metrics": [
+      {
+       "label": "Khuyến nghị đưa ra",
+       "value": "10"
+      },
+      {
+       "label": "Khách hàng đã thực hiện",
+       "value": "7"
+      },
+      {
+       "label": "Đúng / sai",
+       "value": "4 / 2"
+      },
+      {
+       "label": "Hành động bỏ lỡ",
+       "value": "2",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "chat",
+     "name": "AI Client Chat",
+     "name_vi": "AI chat với khách hàng",
+     "score": 81,
+     "trend": [
+      0.798,
+      0.828,
+      0.79,
+      0.838,
+      0.827,
+      0.844,
+      0.921,
+      0.851,
+      0.851,
+      0.864,
+      0.901,
+      0.941
+     ],
+     "metrics": [
+      {
+       "label": "Hội thoại",
+       "value": "71"
+      },
+      {
+       "label": "Khai báo đã ghi nhận",
+       "value": "14"
+      },
+      {
+       "label": "Chuyển sang chuyên gia",
+       "value": "18%"
+      },
+      {
+       "label": "Mức hài lòng",
+       "value": "4,7 / 5"
+      }
+     ]
+    }
+   ],
+   "advice": [
+    {
+     "date": "2026-10-08",
+     "agent": "planner",
+     "text": "Khóa tỷ giá cho học phí kỳ tới bằng tiền gửi ngoại tệ",
+     "outcome": "open",
+     "value": 0.0
+    },
+    {
+     "date": "2026-09-11",
+     "agent": "chat",
+     "text": "Cập nhật giá đất Long Thành sau quyết định khai thác sân bay",
+     "outcome": "right",
+     "value": 0.0
+    },
+    {
+     "date": "2026-08-20",
+     "agent": "planner",
+     "text": "Tăng tỷ trọng cổ phiếu khi VN-Index vượt 1.400",
+     "outcome": "avoided",
+     "value": 0.0
+    },
+    {
+     "date": "2026-07-24",
+     "agent": "impact",
+     "text": "Cổ phiếu VNM phục hồi sau báo cáo quý, giữ nguyên",
+     "outcome": "wrong",
+     "value": -50000000.0
+    },
+    {
+     "date": "2026-06-06",
+     "agent": "news",
+     "text": "Nâng hạng thị trường: mua thêm quỹ cổ phiếu trước công bố",
+     "outcome": "right",
+     "value": 106000000.0
+    },
+    {
+     "date": "2026-05-24",
+     "agent": "planner",
+     "text": "Cơ cấu khoản vay thả nổi sang cố định 3 năm",
+     "outcome": "missed",
+     "value": 41000000.0
+    },
+    {
+     "date": "2026-03-11",
+     "agent": "planner",
+     "text": "Mua ngoại tệ dần cho học phí du học",
+     "outcome": "missed",
+     "value": 61000000.0
+    },
+    {
+     "date": "2026-02-19",
+     "agent": "news",
+     "text": "Giá vàng miếng sẽ giảm khi NHNN tăng cung, bán bớt 30%",
+     "outcome": "wrong",
+     "value": -25000000.0
+    },
+    {
+     "date": "2026-01-15",
+     "agent": "planner",
+     "text": "Gửi kỳ hạn 12 tháng khi lãi suất đỉnh 6,1%",
+     "outcome": "right",
+     "value": 61000000.0
+    },
+    {
+     "date": "2025-11-22",
+     "agent": "planner",
+     "text": "Chốt lời một nửa cổ phiếu ngân hàng sau nhịp tăng 25%",
+     "outcome": "right",
+     "value": 150000000.0
+    }
+   ],
+   "missed_news": [
+    {
+     "date": "2026-02-14",
+     "title": "NHNN tăng cung vàng miếng, giá SJC giảm 8% trong hai tuần",
+     "signal": "2026-01-28 · dự thảo sửa Nghị định 24 được đăng lấy ý kiến",
+     "why": "Nguồn dự thảo chưa có trong danh sách nguồn theo dõi",
+     "impact": -36000000.0
+    },
+    {
+     "date": "2026-05-06",
+     "title": "Lãi suất cho vay thả nổi tăng 1,2 điểm sau đợt hút tiền của NHNN",
+     "signal": "2026-04-22 · lãi suất liên ngân hàng tăng 3 phiên liền",
+     "why": "Tín hiệu vĩ mô chưa được nối với khoản vay của khách",
+     "impact": -26000000.0
+    },
+    {
+     "date": "2026-07-18",
+     "title": "Bảng giá đất mới của TP.HCM áp dụng sớm hơn dự kiến",
+     "signal": "2026-07-02 · HĐND thành phố đưa vào chương trình kỳ họp",
+     "why": "Đánh giá xác suất thông qua thấp hơn thực tế",
+     "impact": -17000000.0
+    }
+   ],
+   "engagement": {
+    "months": [
+     "2025-11",
+     "2025-12",
+     "2026-01",
+     "2026-02",
+     "2026-03",
+     "2026-04",
+     "2026-05",
+     "2026-06",
+     "2026-07",
+     "2026-08",
+     "2026-09",
+     "2026-10"
+    ],
+    "minutes": [
+     65,
+     62,
+     49,
+     57,
+     57,
+     75,
+     76,
+     62,
+     54,
+     56,
+     80,
+     68
+    ],
+    "days": [
+     11,
+     9,
+     7,
+     9,
+     10,
+     14,
+     14,
+     12,
+     8,
+     11,
+     15,
+     13
+    ],
+    "alerts_opened": "79%",
+    "streak": 21
+   },
+   "risk_tests": [
+    {
+     "date": "2025-02-21",
+     "tolerance": 35,
+     "capacity": 48,
+     "profile": "Thận trọng"
+    },
+    {
+     "date": "2025-08-30",
+     "tolerance": 31,
+     "capacity": 45,
+     "profile": "Thận trọng"
+    },
+    {
+     "date": "2026-02-27",
+     "tolerance": 28,
+     "capacity": 44,
+     "profile": "Thận trọng"
+    }
+   ]
+  },
+  "C05": {
+   "summary": {
+    "advice": 11,
+    "right": 6,
+    "wrong": 2,
+    "missed": 1,
+    "open": 1,
+    "gained": 182000000.0,
+    "lost": -31000000.0,
+    "missed_value": 14000000.0,
+    "missed_news": 3,
+    "missed_news_value": -30000000.0
+   },
+   "agents": [
+    {
+     "id": "news",
+     "name": "AI News Reader",
+     "name_vi": "AI đọc báo, tổng hợp tin",
+     "score": 81,
+     "trend": [
+      0.792,
+      0.75,
+      0.786,
+      0.805,
+      0.866,
+      0.778,
+      0.766,
+      0.787,
+      0.781,
+      0.814,
+      0.821,
+      0.869
+     ],
+     "metrics": [
+      {
+       "label": "Bài báo, văn bản đã đọc",
+       "value": "16.860"
+      },
+      {
+       "label": "Tin liên quan gửi khách hàng",
+       "value": "140"
+      },
+      {
+       "label": "Tin quan trọng bị bỏ lỡ",
+       "value": "3",
+       "tone": "bad"
+      },
+      {
+       "label": "Thời gian từ lúc tin ra đến lúc gửi",
+       "value": "1,6 giờ"
+      }
+     ]
+    },
+    {
+     "id": "impact",
+     "name": "AI Impact Assessor",
+     "name_vi": "AI đánh giá tác động lên danh mục",
+     "score": 75,
+     "trend": [
+      0.739,
+      0.687,
+      0.737,
+      0.738,
+      0.712,
+      0.812,
+      0.724,
+      0.826,
+      0.719,
+      0.798,
+      0.73,
+      0.834
+     ],
+     "metrics": [
+      {
+       "label": "Đánh giá tác động đã chạy",
+       "value": "280"
+      },
+      {
+       "label": "Đúng chiều tăng / giảm",
+       "value": "76%"
+      },
+      {
+       "label": "Sai số ước tính trung bình",
+       "value": "±28%"
+      },
+      {
+       "label": "Sai nhiều nhất",
+       "value": "Bảng giá đất TP.HCM",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "planner",
+     "name": "AI Planning Advisor",
+     "name_vi": "AI tư vấn kế hoạch và hành động",
+     "score": 76,
+     "trend": [
+      0.711,
+      0.679,
+      0.757,
+      0.765,
+      0.729,
+      0.703,
+      0.745,
+      0.803,
+      0.696,
+      0.794,
+      0.709,
+      0.705
+     ],
+     "metrics": [
+      {
+       "label": "Khuyến nghị đưa ra",
+       "value": "11"
+      },
+      {
+       "label": "Khách hàng đã thực hiện",
+       "value": "9"
+      },
+      {
+       "label": "Đúng / sai",
+       "value": "6 / 2"
+      },
+      {
+       "label": "Hành động bỏ lỡ",
+       "value": "1",
+       "tone": "bad"
+      }
+     ]
+    },
+    {
+     "id": "chat",
+     "name": "AI Client Chat",
+     "name_vi": "AI chat với khách hàng",
+     "score": 85,
+     "trend": [
+      0.834,
+      0.872,
+      0.841,
+      0.832,
+      0.91,
+      0.893,
+      0.875,
+      0.882,
+      0.929,
+      0.921,
+      0.833,
+      0.861
+     ],
+     "metrics": [
+      {
+       "label": "Hội thoại",
+       "value": "33"
+      },
+      {
+       "label": "Khai báo đã ghi nhận",
+       "value": "10"
+      },
+      {
+       "label": "Chuyển sang chuyên gia",
+       "value": "18%"
+      },
+      {
+       "label": "Mức hài lòng",
+       "value": "4,5 / 5"
+      }
+     ]
+    }
+   ],
+   "advice": [
+    {
+     "date": "2026-10-20",
+     "agent": "planner",
+     "text": "Khóa tỷ giá cho học phí kỳ tới bằng tiền gửi ngoại tệ",
+     "outcome": "open",
+     "value": 0.0
+    },
+    {
+     "date": "2026-09-14",
+     "agent": "chat",
+     "text": "Cập nhật giá đất Long Thành sau quyết định khai thác sân bay",
+     "outcome": "right",
+     "value": 0.0
+    },
+    {
+     "date": "2026-08-19",
+     "agent": "planner",
+     "text": "Tăng tỷ trọng cổ phiếu khi VN-Index vượt 1.400",
+     "outcome": "avoided",
+     "value": 0.0
+    },
+    {
+     "date": "2026-07-09",
+     "agent": "impact",
+     "text": "Cổ phiếu VNM phục hồi sau báo cáo quý, giữ nguyên",
+     "outcome": "wrong",
+     "value": -21000000.0
+    },
+    {
+     "date": "2026-06-19",
+     "agent": "news",
+     "text": "Nâng hạng thị trường: mua thêm quỹ cổ phiếu trước công bố",
+     "outcome": "right",
+     "value": 42000000.0
+    },
+    {
+     "date": "2026-05-05",
+     "agent": "planner",
+     "text": "Cơ cấu khoản vay thả nổi sang cố định 3 năm",
+     "outcome": "missed",
+     "value": 14000000.0
+    },
+    {
+     "date": "2026-04-25",
+     "agent": "impact",
+     "text": "Cổ phiếu FPT hưởng lợi từ hợp đồng AI, tăng tỷ trọng",
+     "outcome": "right",
+     "value": 45000000.0
+    },
+    {
+     "date": "2026-02-21",
+     "agent": "news",
+     "text": "Giá vàng miếng sẽ giảm khi NHNN tăng cung, bán bớt 30%",
+     "outcome": "wrong",
+     "value": -10000000.0
+    },
+    {
+     "date": "2026-01-15",
+     "agent": "planner",
+     "text": "Gửi kỳ hạn 12 tháng khi lãi suất đỉnh 6,1%",
+     "outcome": "right",
+     "value": 16000000.0
+    },
+    {
+     "date": "2025-12-21",
+     "agent": "impact",
+     "text": "Giảm trái phiếu BĐS trước kỳ đáo hạn lô lớn của tổ chức phát hành",
+     "outcome": "right",
+     "value": 34000000.0
+    },
+    {
+     "date": "2025-11-26",
+     "agent": "planner",
+     "text": "Chốt lời một nửa cổ phiếu ngân hàng sau nhịp tăng 25%",
+     "outcome": "right",
+     "value": 45000000.0
+    }
+   ],
+   "missed_news": [
+    {
+     "date": "2026-02-14",
+     "title": "NHNN tăng cung vàng miếng, giá SJC giảm 8% trong hai tuần",
+     "signal": "2026-01-28 · dự thảo sửa Nghị định 24 được đăng lấy ý kiến",
+     "why": "Nguồn dự thảo chưa có trong danh sách nguồn theo dõi",
+     "impact": -14000000.0
+    },
+    {
+     "date": "2026-05-06",
+     "title": "Lãi suất cho vay thả nổi tăng 1,2 điểm sau đợt hút tiền của NHNN",
+     "signal": "2026-04-22 · lãi suất liên ngân hàng tăng 3 phiên liền",
+     "why": "Tín hiệu vĩ mô chưa được nối với khoản vay của khách",
+     "impact": -10000000.0
+    },
+    {
+     "date": "2026-07-18",
+     "title": "Bảng giá đất mới của TP.HCM áp dụng sớm hơn dự kiến",
+     "signal": "2026-07-02 · HĐND thành phố đưa vào chương trình kỳ họp",
+     "why": "Đánh giá xác suất thông qua thấp hơn thực tế",
+     "impact": -6000000.0
+    }
+   ],
+   "engagement": {
+    "months": [
+     "2025-11",
+     "2025-12",
+     "2026-01",
+     "2026-02",
+     "2026-03",
+     "2026-04",
+     "2026-05",
+     "2026-06",
+     "2026-07",
+     "2026-08",
+     "2026-09",
+     "2026-10"
+    ],
+    "minutes": [
+     53,
+     39,
+     76,
+     59,
+     67,
+     73,
+     75,
+     57,
+     68,
+     53,
+     68,
+     70
+    ],
+    "days": [
+     10,
+     7,
+     12,
+     9,
+     10,
+     12,
+     11,
+     11,
+     10,
+     8,
+     11,
+     11
+    ],
+    "alerts_opened": "71%",
+    "streak": 12
+   },
+   "risk_tests": [
+    {
+     "date": "2025-05-05",
+     "tolerance": 70,
+     "capacity": 40,
+     "profile": "Thận trọng"
+    },
+    {
+     "date": "2025-11-11",
+     "tolerance": 76,
+     "capacity": 38,
+     "profile": "Thận trọng"
+    },
+    {
+     "date": "2026-05-14",
+     "tolerance": 81,
+     "capacity": 36,
+     "profile": "Thận trọng"
+    }
+   ]
+  }
+ }
+}

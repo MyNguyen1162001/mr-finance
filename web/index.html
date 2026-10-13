@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mr. Finance</title>
+<title>Techcombank Wealth</title>
 <meta name="description" content="Bức tranh toàn cảnh tài sản của khách hàng, và điều gì đang tác động tới nó.">
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <header class="top">
-  <div class="brand"><span class="logo" aria-hidden="true">M</span><span>Mr. Finance</span></div>
+  <div class="brand"><span class="logo" aria-hidden="true">T</span><span>Techcombank Wealth</span></div>
   <label class="pick">
     <span class="sr">Khách hàng</span>
     <select id="client"></select>
@@ -20,24 +20,33 @@
   </div>
   <button type="button" id="theme" class="ghost" title="Đổi giao diện sáng / tối" aria-label="Đổi giao diện sáng / tối">◐</button>
 </header>
+<nav class="pillars" aria-label="Trụ cột">
+  <button type="button" data-pillar="wealth" aria-current="true">Wealth View</button>
+  <button type="button" data-pillar="news">Headline News</button>
+  <button type="button" data-pillar="plan">Wealth Planning Advisor</button>
+  <button type="button" data-pillar="rm">Relationship specialist</button>
+  <button type="button" data-pillar="perf">Advisory performance</button>
+</nav>
 <nav class="tabs" aria-label="Trang">
-  <button type="button" data-tab="overview" aria-current="page">Tổng quan</button>
-  <button type="button" data-tab="sources">Kết nối dữ liệu</button>
-  <button type="button" data-tab="alerts">Cảnh báo</button>
-  <button type="button" data-tab="risk">Bài test rủi ro</button>
-  <button type="button" data-tab="scenarios">Kịch bản</button>
-  <button type="button" data-tab="rm">RM duyệt</button>
+  <button type="button" data-pillar="wealth" data-tab="overview" aria-current="page">Wealth view</button>
+  <button type="button" data-pillar="wealth" data-tab="sources">Data connections</button>
+  <button type="button" data-pillar="news" data-tab="alerts">Headline News</button>
+  <button type="button" data-pillar="plan" data-tab="scenarios">Wealth planning advisor</button>
+  <button type="button" data-pillar="plan" data-tab="risk">Risk profile test</button>
+  <button type="button" data-pillar="rm" data-tab="rm">Relationship specialist</button>
+  <button type="button" data-pillar="perf" data-tab="performance">Advisory performance</button>
 </nav>
 <main id="main">
   <section id="tab-overview" class="tab"></section>
-  <section id="tab-sources" class="tab" hidden></section>
   <section id="tab-alerts" class="tab" hidden></section>
   <section id="tab-risk" class="tab" hidden></section>
   <section id="tab-scenarios" class="tab" hidden></section>
+  <section id="tab-performance" class="tab" hidden></section>
+  <section id="tab-sources" class="tab" hidden></section>
   <section id="tab-rm" class="tab" hidden></section>
 </main>
 <div id="tip" class="tip" role="tooltip" hidden></div>
-<footer class="foot">Dữ liệu mô phỏng cho buổi demo · giá, lãi suất và tổ chức phát hành là số liệu giả định. Nội dung là mô phỏng, khuyến nghị cụ thể phải qua RM duyệt.
+<footer class="foot">Dữ liệu mô phỏng cho buổi demo · giá, lãi suất và tổ chức phát hành là số liệu giả định. Nội dung là mô phỏng, khuyến nghị cụ thể phải qua chuyên gia quan hệ khách hàng duyệt.
   <button type="button" id="reset" class="linkbtn">Làm lại demo</button></footer>
 <script src="fmt.js"></script>
 <script src="charts.js"></script>

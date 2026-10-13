@@ -90,6 +90,73 @@ def saving_for(target: float, months: int, rate: float = SAFE) -> float:
     return target * r / ((1 + r) ** months - 1) if r else target / months
 
 
+# ── a life event read as a goal ──────────────────────────────────────────
+#
+# need: what the goal costs; have: what the client can already put to it; gap = need - have
+# (positive: short). monthly: what closes the gap by the date. The status compares that with the
+# monthly surplus: on track within 60% of it, at risk up to all of it, off track beyond.
+
+ON_TRACK, AT_RISK, OFF_TRACK = "on_track", "at_risk", "off_track"
+_WORSE = {ON_TRACK: 0, AT_RISK: 1, OFF_TRACK: 2}
+
+
+def act(text: str, cut: float, option: str, effect: str = "") -> Dict[str, Any]:
+    """One action toward a goal: how much of the gap it closes (VND), from which option."""
+    return {"text": text, "cut": max(0.0, cut), "option": option, "effect": effect}
+
+
+def goal(
+    need: float,
+    have: float,
+    monthly: Optional[float],
+    surplus: float,
+    by: str,
+    actions: List[Dict[str, Any]],
+    have_label: str = "Hiện có",
+    floor: str = ON_TRACK,
+    why: str = "",
+) -> Dict[str, Any]:
+    gap = need - have
+    if gap <= 0:
+        status = ON_TRACK
+    elif monthly is None:
+        status = OFF_TRACK
+    elif surplus <= 0:
+        status = OFF_TRACK
+    else:
+        ratio = monthly / surplus
+        status = ON_TRACK if ratio <= 0.6 else AT_RISK if ratio <= 1 else OFF_TRACK
+    if _WORSE[floor] > _WORSE[status]:
+        status = floor
+    if gap <= 0:
+        verdict = f"Đã đủ: nguồn hiện có vượt nhu cầu {vnd(-gap)}." if -gap >= TR else "Đã đủ nguồn cho mục tiêu."
+    elif monthly is None:
+        verdict = f"Còn thiếu {vnd(gap)} chưa có nguồn bù."
+    else:
+        enough = monthly <= max(0.0, surplus)
+        verdict = (
+            f"Cần để dành {vnd(monthly)}/tháng; bạn dư {vnd(max(0.0, surplus))}/tháng → "
+            + ("đủ" if enough else "chưa đủ")
+            + "."
+        )
+    if why:
+        verdict += " " + why
+    ranked = sorted((a for a in actions if a["cut"] > 0 or a["effect"]), key=lambda a: -a["cut"])[:3]
+    return {
+        "need": need,
+        "have": max(0.0, have),
+        "have_label": have_label,
+        "gap": gap,
+        "monthly": monthly,
+        "surplus": surplus,
+        "by": by,
+        "status": status,
+        "progress": max(0.0, min(1.0, have / need)) if need > 0 else 1.0,
+        "verdict": verdict,
+        "actions": [{**a, "cut": min(a["cut"], max(0.0, gap)) if gap > 0 else a["cut"]} for a in ranked],
+    }
+
+
 # ── life events ──────────────────────────────────────────────────────────
 
 
@@ -114,7 +181,21 @@ def tuition(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     months = p.months_until(start, month) + (years - 1) * 12
     monthly = saving_for(gap, months) if gap else 0.0
     fits = monthly <= max(0.0, p.surplus)
+    target = goal(
+        with_fx,
+        min(reserve, with_fx),
+        monthly,
+        p.surplus,
+        f"{start + years - 1}",
+        [
+            act(f"Gửi tiết kiệm định kỳ {vnd(monthly)}/tháng, kỳ hạn khớp từng năm học", gap, "light"),
+            act(f"Khóa tỷ giá cho {vnd(with_fx * 0.5)} bằng tiền gửi ngoại tệ", total * fx * 0.5, "heavy"),
+            act("Mua ngoại tệ dần mỗi quý để trung bình giá", total * fx * 0.25, "light"),
+        ],
+        have_label="Dự phòng dùng được",
+    )
     return {
+        "goal": target,
         "params": {"per_year": per_year, "years": years, "start_year": start, "fx_rise": fx},
         "summary": [
             line(f"Tổng chi phí ({years} năm)", vnd(total)),
@@ -178,7 +259,34 @@ def retire_early(p: Pic, prm: Dict[str, Any], withdraw: float = 0.0) -> Dict[str
         y += 1
     lasts = y
     ok = passive >= spend
+    # the pot that pays the spending rent does not cover at a 4% withdrawal
+    need = max(0.0, spend - rent) / 0.04
+    # already at the age: a year of saving is what is left to close a gap
+    grow = ((1 + GROWTH) ** years - 1) / GROWTH * 12 if years else 12.0
+    short = need - pot
+    monthly = max(0.0, short / grow)
+    idle = sum(h["value"] for h in p.assets("real_estate") if not h["detail"].get("rental_monthly"))
+    target = goal(
+        need,
+        pot,
+        monthly,
+        p.surplus,
+        f"{at} tuổi",
+        [
+            act(f"Tăng tích lũy thêm {vnd(monthly)}/tháng vào quỹ cân bằng", short, "light"),
+            act(
+                "Làm thêm 2 năm trước khi nghỉ",
+                pot * ((1 + GROWTH) ** 2 - 1) + max(0.0, p.surplus) * 24 + need * 0.04 * 2,
+                "light",
+            ),
+            act("Cho thuê hoặc bán BĐS chưa tạo thu nhập", idle * 0.035 / 0.04, "heavy"),
+        ],
+        have_label=f"Dự kiến có lúc {at} tuổi",
+        floor=OFF_TRACK if lasts < 85 else AT_RISK if lasts < 90 else ON_TRACK,
+        why=f"Tiền đủ dùng tới {'trên 100 tuổi' if lasts >= 100 else f'{lasts} tuổi'}.",
+    )
     return {
+        "goal": target,
         "params": {"retire_age": at, "spending_after": spend / 12},
         "summary": [
             line(f"Tài sản đầu tư lúc {at} tuổi", vnd(pot)),
@@ -287,7 +395,25 @@ def leverage_buy(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     dsr, dsr_shock = (p.payments + pay) / income, (p.payments + shock - rent * 0.7) / income
     after = {**p.state(), "liquid": p.liquid - down}
     after["liquid_months"] = after["liquid"] / p.spending
+    # the down payment and six instalments at +2%, from what is left above six months of spending
+    need, have = down + shock * 6, max(0.0, p.liquid - 6 * p.spending)
+    target = goal(
+        need,
+        have,
+        saving_for(max(0.0, need - have), 24),
+        p.surplus,
+        "trong 24 tháng",
+        [
+            act(f"Để dành {vnd(saving_for(max(0.0, need - have), 24))}/tháng trong 24 tháng", need - have, "light"),
+            act("Chọn gói lãi cố định 3 năm đầu", (shock - pay) * 6, "light"),
+            act(f"Hạ giá mục tiêu xuống {vnd(price * 0.8)}", price * 0.2 * (1 - ratio), "heavy"),
+        ],
+        have_label="Thanh khoản ngoài 6 tháng chi tiêu",
+        floor=OFF_TRACK if dsr > 0.5 else AT_RISK if dsr > 0.4 else ON_TRACK,
+        why=f"Tỷ lệ trả nợ / thu nhập {pct(dsr)}.",
+    )
     return {
+        "goal": target,
         "params": {"price": price, "loan_ratio": ratio, "years": years, "rate": rate, "rent_monthly": rent},
         "summary": [
             line("Vốn tự có cần", vnd(down), "bad" if down > p.liquid else "neutral"),
@@ -325,7 +451,26 @@ def pass_on(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     biz = p.value("business") * share
     tax = (secs + biz) * 0.10  # gifted securities and shares: 10% (real estate between parents and children: exempt)
     notary = (re + secs + biz) * 0.001
+    have = max(0.0, p.liquid - 6 * p.spending)
+    target = goal(
+        tax + notary,
+        have,
+        saving_for(max(0.0, tax + notary - have), 12),
+        p.surplus,
+        "trong 12 tháng",
+        [
+            act("Tặng cho BĐS trước (miễn thuế), giữ chứng khoán và cổ phần", tax, "light"),
+            act(
+                "Lập di chúc và thỏa thuận chia tài sản",
+                0,
+                "heavy",
+                "Chuyển giao có trật tự, tránh tranh chấp",
+            ),
+        ],
+        have_label="Thanh khoản ngoài 6 tháng chi tiêu",
+    )
     return {
+        "goal": target,
         "params": {"share": share},
         "summary": [
             line("Bất động sản chuyển cho con", vnd(re) + " — miễn thuế TNCN giữa cha mẹ và con", "good"),
@@ -378,7 +523,20 @@ def business_cash(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
         take = min(avail, left)
         plan.append({"source": name, "amount": take, "cost": cost, "time": when})
         left -= take
+    pledged = any(x["source"].startswith(("Vay cầm cố cổ phiếu", "Vay thế chấp")) for x in plan)
+    target = goal(
+        need,
+        need - max(0.0, left),
+        None,
+        p.surplus,
+        "trong 2 – 4 tuần",
+        [act(f"{x['source']}: {vnd(x['amount'])} · {x['time']}", x["amount"], "light") for x in plan],
+        have_label="Huy động được",
+        floor=AT_RISK if pledged else ON_TRACK,
+        why="Phải vay cầm cố cổ phiếu hoặc thế chấp BĐS." if pledged else "",
+    )
     return {
+        "goal": target,
         "params": {"need": need},
         "summary": [
             line("Cần huy động", vnd(need)),
@@ -414,7 +572,24 @@ def medical(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     pocket = cost * (1 - cover)
     after = {**p.state(), "liquid": p.liquid - pocket}
     after["liquid_months"] = after["liquid"] / p.spending
+    have = max(0.0, p.liquid - 6 * p.spending)
+    target = goal(
+        pocket,
+        have,
+        saving_for(max(0.0, pocket - have), 12),
+        p.surplus,
+        "dự phòng sẵn",
+        [
+            act("Mua thêm bảo hiểm sức khỏe cao cấp cho cả gia đình", cost * max(0.0, 0.8 - cover), "heavy"),
+            act(
+                f"Để dành {vnd(saving_for(max(0.0, pocket - have), 12))}/tháng vào quỹ dự phòng", pocket - have, "light"
+            ),
+        ],
+        have_label="Thanh khoản ngoài 6 tháng chi tiêu",
+        floor=OFF_TRACK if after["liquid_months"] < 3 else AT_RISK if after["liquid_months"] < 6 else ON_TRACK,
+    )
     return {
+        "goal": target,
         "params": {"cost": cost, "cover": cover},
         "summary": [
             line("Chi phí điều trị", vnd(cost)),
@@ -449,7 +624,22 @@ def emigrate(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     usd = float(prm.get("usd") or 200_000)
     rate = p.market["fx"]["USDVND"]["rate"]
     vnd_now, vnd_up = usd * rate, usd * rate * 1.05
+    have = max(0.0, p.liquid - 6 * p.spending)
+    target = goal(
+        vnd_up,
+        have,
+        saving_for(max(0.0, vnd_up - have), 12),
+        p.surplus,
+        "trong 12 tháng",
+        [
+            act(f"Để dành {vnd(saving_for(max(0.0, vnd_up - have), 12))}/tháng trong 12 tháng", vnd_up - have, "light"),
+            act("Mua kỳ hạn (forward) toàn bộ số ngoại tệ cần", vnd_up - vnd_now, "heavy"),
+            act("Mua ngoại tệ dần mỗi tháng trong 12 tháng", (vnd_up - vnd_now) * 0.5, "light"),
+        ],
+        have_label="Thanh khoản ngoài 6 tháng chi tiêu",
+    )
     return {
+        "goal": target,
         "params": {"usd": usd},
         "summary": [
             line("Số ngoại tệ cần", f"{usd:,.0f} USD".replace(",", ".")),
@@ -486,7 +676,24 @@ def wedding(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     base = retire_early(p, {"retire_age": prm.get("retire_age") or 60})
     after = retire_early(p, {"retire_age": prm.get("retire_age") or 60}, withdraw=amount)
     drop = base["lasts"] - after["lasts"]
+    have = max(0.0, p.liquid - 6 * p.spending)
+    target = goal(
+        amount,
+        have,
+        saving_for(max(0.0, amount - have), 12),
+        p.surplus,
+        "trong 12 tháng",
+        [
+            act(f"Hỗ trợ {vnd(amount * 0.5)}, phần còn lại con vay ưu đãi", amount * 0.5, "light"),
+            act(f"Để dành {vnd(saving_for(max(0.0, amount - have), 12))}/tháng trong 12 tháng", amount - have, "light"),
+            act("Rút từ tiền gửi và quỹ, tăng tích lũy sau đó để bù", have, "heavy"),
+        ],
+        have_label="Thanh khoản ngoài 6 tháng chi tiêu",
+        floor=OFF_TRACK if drop >= 3 else AT_RISK if drop > 0 else ON_TRACK,
+        why=f"Mục tiêu nghỉ hưu sớm hết tiền {drop} năm." if drop > 0 else "",
+    )
     return {
+        "goal": target,
         "params": {"amount": amount},
         "summary": [
             line("Khoản rút ra", vnd(amount)),
@@ -662,9 +869,108 @@ def usd_up(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     return {"params": {}, **out}
 
 
+# ── a goal tracked against the portfolio that funds it ──────────────────
+#
+# The same goal, run again on the holdings as they were a month ago and at the start of the year
+# (each holding's prev_value / ytd_value; flat when unknown), says how the gap moved. The pool
+# that funds it — what is invested, for retirement; what can be had within days beyond six months
+# of spending, for the rest — is held against what the plan expects of it: its rate (GROWTH or
+# SAFE) plus the monthly saving the plan asks for.
+
+INVESTED_POOL = ("cash", "deposit", "fund", "bond", "stock", "gold", "crypto")
+
+
+def _as_of(p: Pic, field: str) -> Pic:
+    held = [{**h, "value": h.get(field) if h.get(field) is not None else h["value"]} for h in p.holdings]
+    return Pic(holdings=held, profile=p.profile, market=p.market)
+
+
+def _pool(p: Pic, invested: bool) -> float:
+    return p.value(*INVESTED_POOL) - p.debt if invested else p.liquid - 6 * p.spending
+
+
+def _pool_holdings(p: Pic, invested: bool) -> List[Dict[str, Any]]:
+    if invested:
+        return p.assets(*INVESTED_POOL)
+    return [h for h in p.assets() if h["class"] in ("cash", "deposit") or (h["class"] == "fund" and h["liquid"])]
+
+
+def track(run: Callable[[Pic, Dict[str, Any]], Dict[str, Any]], p: Pic, params: Dict[str, Any], scenario: str):
+    """How the goal and the pool that funds it moved this month and this year, against the plan."""
+    invested = scenario == "retire_early"
+    rate = GROWTH if invested else SAFE
+    now, prev, start = p, _as_of(p, "prev_value"), _as_of(p, "ytd_value")
+    g_now, g_prev, g_start = (run(x, params)["goal"] for x in (now, prev, start))
+    pool_now, pool_prev, pool_start = (_pool(x, invested) for x in (now, prev, start))
+    saving = max(0.0, p.surplus) if invested else (g_prev["monthly"] or 0.0)
+    actual = pool_now - pool_prev
+    expected = pool_prev * rate / 12 + saving
+    elapsed = (p.today.month - 1) + p.today.day / 30
+    ytd_actual = (pool_now - pool_start) / abs(pool_start) if pool_start else 0.0
+    ytd_expected = (1 + rate) ** (elapsed / 12) - 1 + (saving * elapsed / abs(pool_start) if pool_start else 0.0)
+    gap_move = g_now["gap"] - g_prev["gap"]
+    label = "Tài sản đầu tư (trừ nợ)" if invested else "Thanh khoản ngoài 6 tháng chi tiêu"
+    movers = []
+    for h in _pool_holdings(p, invested):
+        before = h["prev_value"] if h.get("prev_value") is not None else h["value"]
+        if h["value"] != before:
+            movers.append({"name": h["name"], "change": h["value"] - before, "pct": (h["value"] - before) / before})
+    movers.sort(key=lambda m: -abs(m["change"]))
+    short = actual - expected
+    note = (
+        f"Tháng này {label.lower()} "
+        + (f"{'tăng' if actual > 0 else 'giảm'} {vnd(abs(actual))}, " if abs(actual) >= TR else "không đổi, ")
+        + (f"thấp hơn kỳ vọng {vnd(expected)}: hụt {vnd(-short)}" if short < 0 else f"vượt kỳ vọng {vnd(expected)}")
+        + (
+            f" (kế hoạch cần để dành {vnd(saving)}/tháng)"
+            if saving and not invested
+            else f" (kỳ vọng {pct(rate, digits=0)}/năm và tiền dư {vnd(saving)}/tháng)"
+            if invested
+            else ""
+        )
+        + (
+            f". Chênh lệch mục tiêu {'xấu đi' if gap_move > 0 else 'cải thiện'} {vnd(abs(gap_move))}"
+            + " so với tháng trước."
+            if abs(gap_move) >= TR
+            else ". Chênh lệch mục tiêu không đổi so với tháng trước."
+        )
+    )
+    return {
+        "pool_label": label,
+        "rate": rate,
+        "saving": saving,
+        "points": [
+            {"label": "Đầu năm", "pool": pool_start, "gap": g_start["gap"], "status": g_start["status"]},
+            {"label": "Tháng trước", "pool": pool_prev, "gap": g_prev["gap"], "status": g_prev["status"]},
+            {"label": "Hiện tại", "pool": pool_now, "gap": g_now["gap"], "status": g_now["status"]},
+        ],
+        "month": {
+            "actual": actual,
+            "expected": expected,
+            "short": short,
+            "actual_pct": actual / abs(pool_prev) if pool_prev else 0.0,
+            "expected_pct": expected / abs(pool_prev) if pool_prev else 0.0,
+            "gap_move": gap_move,
+        },
+        "ytd": {"actual_pct": ytd_actual, "expected_pct": ytd_expected},
+        "behind": short < 0,
+        "movers": movers[:4],
+        "note": note,
+    }
+
+
+# the life stages the goals are grouped by (a life event with no stage is a decision, not a goal)
+STAGES = {
+    "family": "Gia đình & con cái",
+    "grow": "Tích lũy tài sản",
+    "retire": "Nghỉ hưu & chuyển giao",
+    "protect": "Dự phòng rủi ro",
+}
+
 SCENARIOS: Dict[str, Dict[str, Any]] = {
     "tuition": {
         "kind": "life",
+        "stage": "family",
         "title": "Học phí cho con (trong nước / du học)",
         "question": "Cần bao nhiêu, mỗi tháng để dành bao nhiêu, tỷ giá tăng 5% thì sao?",
         "personas": ["Chuyên gia", "F1"],
@@ -672,13 +978,15 @@ SCENARIOS: Dict[str, Dict[str, Any]] = {
     },
     "retire_early": {
         "kind": "life",
+        "stage": "retire",
         "title": "Nghỉ hưu sớm năm 55 tuổi",
         "question": "Dòng tiền thụ động có đủ chi không, tiền đủ dùng tới năm bao nhiêu tuổi?",
-        "personas": ["Chuyên gia", "Nghỉ hưu"],
+        "personas": ["Chuyên gia", "Nghỉ hưu", "F2"],
         "run": retire_early,
     },
     "sell_home": {
         "kind": "life",
+        "stage": None,
         "title": "Bán căn nhà thứ hai",
         "question": "Thuế, phí, tiền thu về đầu tư vào đâu, so với giữ lại cho thuê?",
         "personas": ["F1", "Nghỉ hưu"],
@@ -686,13 +994,15 @@ SCENARIOS: Dict[str, Dict[str, Any]] = {
     },
     "leverage_buy": {
         "kind": "life",
+        "stage": "grow",
         "title": "Mua thêm BĐS bằng vốn vay",
         "question": "Áp lực trả nợ nếu lãi suất +2%, nếu tiền thuê không như kỳ vọng?",
-        "personas": ["F1", "Mới chạm ngưỡng"],
+        "personas": ["F1", "Mới chạm ngưỡng", "F2"],
         "run": leverage_buy,
     },
     "pass_on": {
         "kind": "life",
+        "stage": "retire",
         "title": "Chuyển giao tài sản cho con",
         "question": "Chia thế nào, thuế, phí, cổ phần doanh nghiệp xử lý ra sao?",
         "personas": ["F1"],
@@ -700,6 +1010,7 @@ SCENARIOS: Dict[str, Dict[str, Any]] = {
     },
     "business_cash": {
         "kind": "life",
+        "stage": "grow",
         "title": "Doanh nghiệp cần vốn gấp",
         "question": "Cầm cố tài sản nào trước, bán gì ít thiệt hại nhất?",
         "personas": ["F1"],
@@ -707,6 +1018,7 @@ SCENARIOS: Dict[str, Dict[str, Any]] = {
     },
     "medical": {
         "kind": "life",
+        "stage": "protect",
         "title": "Chi phí y tế lớn",
         "question": "Thanh khoản dự phòng đủ không, bảo hiểm chi trả bao nhiêu?",
         "personas": ["Nghỉ hưu", "Chuyên gia"],
@@ -714,6 +1026,7 @@ SCENARIOS: Dict[str, Dict[str, Any]] = {
     },
     "emigrate": {
         "kind": "life",
+        "stage": "family",
         "title": "Định cư / con đi du học",
         "question": "Cần chuẩn bị bao nhiêu ngoại tệ, quy định chuyển tiền?",
         "personas": ["Chuyên gia", "F1"],
@@ -721,6 +1034,7 @@ SCENARIOS: Dict[str, Dict[str, Any]] = {
     },
     "wedding": {
         "kind": "life",
+        "stage": "family",
         "title": "Cưới hỏi / hỗ trợ con mua nhà",
         "question": "Rút một khoản lớn thì mục tiêu nghỉ hưu bị ảnh hưởng ra sao?",
         "personas": ["Nghỉ hưu", "F1"],
