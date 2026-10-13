@@ -1,9 +1,10 @@
 """The cash-flow calendar: what comes in and goes out, month by month.
 
 Two kinds of items. **Recurring** ones are found in the account's transactions (a salary, a rent
-received, a card bill, school fees each quarter). **Product** ones come from what the client holds:
-a loan's instalments, a term deposit maturing, a bond's coupons, a stock's dividends, an insurance
-premium, and the dated events the client told us about.
+received, school fees each quarter). **Product** ones come from what the client holds: a loan's
+instalments, a card's balance (paid once, next month: what is owed today, not a bill every month),
+a term deposit maturing, a bond's coupons, a stock's dividends, an insurance premium, and the dated
+events the client told us about.
 """
 
 from __future__ import annotations
@@ -16,8 +17,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 TR = 1_000_000
 
-# not recurring income or bills: day-to-day spending, and loan instalments (the loan itself says)
-SKIP = {"living", "loan"}
+# not recurring income or bills: day-to-day spending, and loan instalments and card payments (the
+# loan and the card's balance themselves say)
+SKIP = {"living", "loan", "card"}
 LABELS = {
     "salary": "Lương",
     "pension": "Lương hưu",
@@ -27,6 +29,9 @@ LABELS = {
     "rent_out": "Tiền thuê nhà phải trả",
     "health": "Chi phí y tế",
 }
+# what the history calls the transactions the forecast leaves out
+HISTORY_LABELS = {**LABELS, "living": "Chi tiêu sinh hoạt", "loan": "Trả nợ vay"}
+HISTORY_MONTHS = 12
 
 
 def month_add(ym: str, n: int) -> str:
@@ -90,8 +95,10 @@ def build(
     big: float,
     market: Dict[str, Any],
 ) -> Dict[str, Any]:
-    start = month_add(as_of[:7], 1)
-    horizon = [month_add(start, i) for i in range(months)]
+    now = as_of[:7]
+    start = month_add(now, 1)
+    # this month is forecast with the rest; only the months after it are the calendar's ``months``
+    horizon = [now] + [month_add(start, i) for i in range(months)]
     cal: Dict[str, List[Dict[str, Any]]] = {m: [] for m in horizon}
 
     def add(
@@ -127,6 +134,8 @@ def build(
             for m in horizon:
                 if m <= end:
                     add(m, "out", d["monthly_payment"], f"Trả nợ: {h['name']}", "loan", owner)
+        elif h["class"] == "card" and h["value"]:
+            add(start, "out", h["value"], f"Thanh toán dư nợ thẻ: {h['name'].removeprefix('Dư nợ thẻ ')}", "card", owner)
         elif h["class"] == "deposit" and d.get("maturity"):
             years = max(
                 0.0,
@@ -185,16 +194,40 @@ def build(
 
     rows, large = [], []
     for m in horizon:
-        items = sorted(cal[m], key=lambda i: (i["direction"], -i["amount"]))
-        inflow = sum(i["amount"] for i in items if i["direction"] == "in")
-        outflow = sum(i["amount"] for i in items if i["direction"] == "out")
-        rows.append({"month": m, "in": inflow, "out": outflow, "net": inflow - outflow, "items": items})
-        large += [{**i, "month": m} for i in items if i["direction"] == "out" and i["amount"] >= big]
+        rows.append(_month(m, cal[m]))
+        if m != now:
+            large += [{**i, "month": m} for i in cal[m] if i["direction"] == "out" and i["amount"] >= big]
+    current, rows = rows[0], rows[1:]
     return {
         "start": start,
+        "history": history(transactions, now),
+        "current": current,
         "months": rows,
         "recurring": rec,
         "large": large,
         "total_in": sum(r["in"] for r in rows),
         "total_out": sum(r["out"] for r in rows),
     }
+
+
+def _month(month: str, items: List[Dict[str, Any]]) -> Dict[str, Any]:
+    items = sorted(items, key=lambda i: (i["direction"], -i["amount"]))
+    inflow = sum(i["amount"] for i in items if i["direction"] == "in")
+    outflow = sum(i["amount"] for i in items if i["direction"] == "out")
+    return {"month": month, "in": inflow, "out": outflow, "net": inflow - outflow, "items": items}
+
+
+def history(transactions: List[Dict[str, Any]], now: str) -> List[Dict[str, Any]]:
+    """The twelve months before ``now`` as they happened: every transaction, summed by what it was."""
+    past = [month_add(now, -i) for i in range(HISTORY_MONTHS, 0, -1)]
+    sums: Dict[str, Dict[Tuple[str, str], float]] = {m: defaultdict(float) for m in past}
+    for t in transactions:
+        m = t["date"][:7]
+        if m in sums:
+            cat = t.get("category", "")
+            sums[m][(t["direction"], HISTORY_LABELS.get(cat, _norm(t["desc"]).title()))] += t["amount"]
+    return [
+        _month(m, [{"direction": d, "amount": round(a), "label": label, "kind": "actual", "owner": None}
+                   for (d, label), a in sums[m].items()])
+        for m in past
+    ]

@@ -860,34 +860,40 @@
     {
      "ticker": "FPT",
      "qty": 15000,
-     "avg_price": 95000
+     "avg_price": 95000,
+     "bought": "2023-03-14"
     },
     {
      "ticker": "TCB",
      "qty": 40000,
-     "avg_price": 21000
+     "avg_price": 21000,
+     "bought": "2024-06-05"
     },
     {
      "ticker": "VNM",
      "qty": 8000,
-     "avg_price": 70000
+     "avg_price": 70000,
+     "bought": "2022-11-21"
     },
     {
      "ticker": "HPG",
      "qty": 20000,
-     "avg_price": 24000
+     "avg_price": 24000,
+     "bought": "2025-02-18"
     }
    ],
    "bonds": [
     {
      "code": "TCB12401",
      "qty": 10000,
-     "avg_price": 100000
+     "avg_price": 100000,
+     "bought": "2025-01-08"
     },
     {
      "code": "SMR12501",
      "qty": 5000,
-     "avg_price": 100000
+     "avg_price": 100000,
+     "bought": "2025-07-22"
     }
    ],
    "realized_ytd": 320000000
@@ -897,12 +903,14 @@
     {
      "code": "TCBF",
      "units": 40000,
-     "avg_nav": 23500
+     "avg_nav": 23500,
+     "bought": "2024-09-10"
     },
     {
      "code": "TCEF",
      "units": 20000,
-     "avg_nav": 27000
+     "avg_nav": 27000,
+     "bought": "2025-04-02"
     }
    ]
   },

@@ -14,6 +14,10 @@
     <span class="sr">Khách hàng</span>
     <select id="client"></select>
   </label>
+  <div class="seg" role="group" aria-label="Góc nhìn" title="Ai đang xem: khách hàng, hay nhân viên Techcombank (thấy thêm trang nội bộ)">
+    <button type="button" data-viewer="client" aria-pressed="true">Khách hàng</button>
+    <button type="button" data-viewer="staff" aria-pressed="false">Nội bộ</button>
+  </div>
   <div class="seg" role="group" aria-label="Phạm vi">
     <button type="button" data-scope="personal" aria-pressed="true">Cá nhân</button>
     <button type="button" data-scope="family" aria-pressed="false">Gia đình</button>
@@ -22,19 +26,20 @@
 </header>
 <nav class="pillars" aria-label="Trụ cột">
   <button type="button" data-pillar="wealth" aria-current="true">Wealth View</button>
-  <button type="button" data-pillar="news">Headline News</button>
   <button type="button" data-pillar="plan">Wealth Planning Advisor</button>
+  <button type="button" data-pillar="news">Headline News</button>
   <button type="button" data-pillar="rm">Relationship specialist</button>
-  <button type="button" data-pillar="perf">Advisory performance</button>
+  <button type="button" data-pillar="perf" data-staff hidden>Advisory performance <span class="lock">Nội bộ</span></button>
 </nav>
 <nav class="tabs" aria-label="Trang">
   <button type="button" data-pillar="wealth" data-tab="overview" aria-current="page">Wealth view</button>
-  <button type="button" data-pillar="wealth" data-tab="sources">Data connections</button>
-  <button type="button" data-pillar="news" data-tab="alerts">Headline News</button>
+  <button type="button" data-pillar="wealth" data-tab="sources">Dữ liệu chi tiết tài sản</button>
   <button type="button" data-pillar="plan" data-tab="scenarios">Wealth planning advisor</button>
   <button type="button" data-pillar="plan" data-tab="risk">Risk profile test</button>
+  <button type="button" data-pillar="news" data-tab="alerts">Headline News</button>
   <button type="button" data-pillar="rm" data-tab="rm">Relationship specialist</button>
-  <button type="button" data-pillar="perf" data-tab="performance">Advisory performance</button>
+  <button type="button" data-pillar="perf" data-tab="performance" data-staff>Khách hàng này</button>
+  <button type="button" data-pillar="perf" data-tab="perfall" data-staff>Tất cả khách hàng</button>
 </nav>
 <main id="main">
   <section id="tab-overview" class="tab"></section>
@@ -42,6 +47,7 @@
   <section id="tab-risk" class="tab" hidden></section>
   <section id="tab-scenarios" class="tab" hidden></section>
   <section id="tab-performance" class="tab" hidden></section>
+  <section id="tab-perfall" class="tab" hidden></section>
   <section id="tab-sources" class="tab" hidden></section>
   <section id="tab-rm" class="tab" hidden></section>
 </main>

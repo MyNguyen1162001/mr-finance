@@ -41,3 +41,22 @@ def test_the_specialist_team_and_the_advisory_record():
         assert client.get("/api/advisory", params={"client_id": "nobody"}).status_code == 404
         goals = client.post("/api/goals", json={"client_id": "C01"}).json()["goals"]
         assert goals and all("goal" in g for g in goals)
+
+
+def test_the_house_views():
+    app = Application.find(".")
+    with TestClient(app.asgi()) as client:
+        out = client.get("/api/views").json()
+        assert out["note"] and len(out["views"]) >= 6
+        assert all({"house", "title", "stance", "touches"} <= set(v) for v in out["views"])
+
+
+def test_the_advisory_record_over_every_client():
+    app = Application.find(".")
+    with TestClient(app.asgi()) as client:
+        one = client.get("/api/advisory", params={"client_id": "C01"}).json()["tracking"]["summary"]
+        out = client.get("/api/advisory/all").json()
+        assert len(out["clients"]) == 5 and out["summary"]["advice"] == sum(c["advice"] for c in out["clients"])
+        assert out["summary"]["advice"] > one["advice"]
+        assert {a["id"] for a in out["agents"]} == {"news", "impact", "planner", "chat"}
+        assert out["advice"][0]["date"] >= out["advice"][-1]["date"] and all(a["client"] for a in out["advice"])

@@ -807,12 +807,14 @@
     {
      "code": "TD2535",
      "qty": 30000,
-     "avg_price": 100500
+     "avg_price": 100500,
+     "bought": "2025-09-17"
     },
     {
      "code": "TCB12401",
      "qty": 20000,
-     "avg_price": 100000
+     "avg_price": 100000,
+     "bought": "2025-01-08"
     }
    ],
    "realized_ytd": 40000000
@@ -822,12 +824,14 @@
     {
      "code": "TCBF",
      "units": 80000,
-     "avg_nav": 23000
+     "avg_nav": 23000,
+     "bought": "2023-07-04"
     },
     {
      "code": "TCMF",
      "units": 50000,
-     "avg_nav": 11500
+     "avg_nav": 11500,
+     "bought": "2024-12-09"
     }
    ]
   },

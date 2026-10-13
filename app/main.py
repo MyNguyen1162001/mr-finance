@@ -9,8 +9,8 @@ POST /api/scenario  {client_id, scenario, params?} ──► scenario_flow ─�
 POST /api/goals     {client_id, scope?} ──► goals_flow ──► every life goal: need, have, gap, status, actions
 POST /api/review/propose ──► propose_flow (the RM queue) · POST /api/review/decide ──► review_flow
 07:00 daily, and `operonx run policy_sweep` ──► the policy_sweep job: alerts_flow for every client
-GET  /api/clients, /api/advisory, POST /api/reset, GET / ──► app/web.py (the sample clients, the
-     specialist team and the advisory track record, the UI)
+GET  /api/clients, /api/advisory[/all], /api/views, POST /api/reset, GET / ──► app/web.py (the sample
+     clients, the specialist team, the advisory track record, the house views, the UI)
 
 Each service runs its graph as is: the JSON body fills the graph's parameters, and the reply is
 its outputs (`{"dashboard": ...}`, `{"read": ...}`, ...). Every service and job of the product is

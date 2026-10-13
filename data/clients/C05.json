@@ -821,12 +821,14 @@
     {
      "ticker": "VCB",
      "qty": 3000,
-     "avg_price": 60000
+     "avg_price": 60000,
+     "bought": "2025-10-20"
     },
     {
      "ticker": "FPT",
      "qty": 2000,
-     "avg_price": 120000
+     "avg_price": 120000,
+     "bought": "2026-02-03"
     }
    ],
    "bonds": [],
@@ -837,7 +839,8 @@
     {
      "code": "TCEF",
      "units": 10000,
-     "avg_nav": 29000
+     "avg_nav": 29000,
+     "bought": "2026-03-23"
     }
    ]
   },

@@ -155,3 +155,39 @@ def test_the_services_answer_over_http():
         bad = client.post("/api/dashboard", json={"client_id": "nobody"})
         assert bad.status_code == 500
         assert client.get("/").status_code == 200
+
+
+def test_the_calendar_keeps_the_past_year_as_it_happened_and_this_month_apart():
+    mk = fixtures.market()
+    tx = [
+        {"date": "2026-09-05", "amount": 120 * TR, "direction": "in", "desc": "LUONG T9", "category": "salary", "owner": "C01"},
+        {"date": "2026-09-12", "amount": 3 * TR, "direction": "out", "desc": "THE GRAB", "category": "living", "owner": "C01"},
+        {"date": "2024-01-05", "amount": 9 * TR, "direction": "in", "desc": "TOO OLD", "category": "salary", "owner": "C01"},
+    ]
+    cal = _calendar.build([], tx, [], "2026-10-09", 12, 500 * TR, mk)
+    past = {m["month"]: m for m in cal["history"]}
+    assert list(past) == [_calendar.month_add("2025-10", i) for i in range(12)]
+    assert (past["2026-09"]["in"], past["2026-09"]["out"]) == (120 * TR, 3 * TR)
+    assert {i["label"] for i in past["2026-09"]["items"]} == {"Lương", "Chi tiêu sinh hoạt"}
+    assert sum(m["in"] for m in cal["history"]) == 120 * TR
+    assert cal["current"]["month"] == "2026-10" and cal["months"][0]["month"] == "2026-11"
+
+
+def test_a_holding_carries_when_and_at_what_it_was_bought():
+    out = asyncio.run(ENGINE.run(inputs={"client_id": "C01", "scope": "personal", "months": 12}))
+    by = {h["name"]: h for h in out["dashboard"]["holdings"]}
+    fpt = by["Cổ phiếu FPT"]
+    assert fpt["detail"]["bought"] and fpt["detail"]["avg_price"] and fpt["cost"] == fpt["detail"]["qty"] * fpt["detail"]["avg_price"]
+    assert all(h["detail"].get("bought") for h in by.values() if h["class"] in ("stock", "bond", "fund"))
+
+
+def test_a_card_balance_is_paid_once_not_every_month():
+    mk = fixtures.market()
+    tx = [
+        {"date": f"2026-{m:02d}-25", "amount": 33 * TR, "direction": "out", "desc": "THANH TOAN DU NO THE TIN DUNG", "category": "card", "owner": "C01"}
+        for m in range(1, 10)
+    ]
+    cal = _calendar.build([h("card", 45 * TR, kind="liability")], tx, [], "2026-10-09", 12, 500 * TR, mk)
+    paid = [(m["month"], i["amount"]) for m in cal["months"] for i in m["items"] if i["kind"] == "card"]
+    assert paid == [("2026-11", 45 * TR)]
+    assert not cal["recurring"]

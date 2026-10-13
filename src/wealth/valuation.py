@@ -8,7 +8,8 @@ One shape for every holding, whatever sent it::
 ``value`` is today's value in VND, ``prev_value`` a month ago, ``ytd_value`` on 1 January (None
 when unknown), ``cost`` what was paid (None when unknown). ``stress`` is the share of the value a
 market stress shaves off (wealth.fixtures market ``stress_drawdown``). A liability's value is what
-is owed, positive.
+is owed, positive. ``detail`` also carries what the source knows of the purchase (``bought``,
+``avg_price`` / ``avg_nav``, ``opened``, ``purchase_year``) for the holdings table.
 """
 
 from __future__ import annotations
@@ -84,6 +85,7 @@ def stock(
         qty=qty,
         price=m["price"],
         avg_price=row.get("avg_price"),
+        bought=row.get("bought"),
         sector=m["sector"],
         issuer=m["issuer"],
         beta=m["beta"],
@@ -108,6 +110,8 @@ def bond(owner: str, source: str, row: Dict[str, Any], market: Dict[str, Any], t
         qty=qty,
         par=m["par"],
         price=m["price"],
+        avg_price=row.get("avg_price"),
+        bought=row.get("bought"),
         issuer=m["issuer"],
         sector=m["sector"],
         bond_kind=m["kind"],
@@ -219,6 +223,8 @@ def techcom_capital(owner: str, raw: Dict[str, Any], market: Dict[str, Any]) -> 
                 code=f["code"],
                 units=u,
                 nav=m["nav"],
+                avg_nav=f["avg_nav"],
+                bought=f.get("bought"),
                 fund_type=m["type"],
             )
         )

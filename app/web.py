@@ -85,6 +85,82 @@ async def advisory(request: Request) -> JSONResponse:
     return JSONResponse({"team": data["team"][cid], "tracking": track, "as_of": data["as_of"], "note": data["note"]})
 
 
+async def advisory_all(request: Request) -> JSONResponse:
+    """The advisory track record over every client (data/advisory.json, mock): the totals, each AI's
+    average score and trend, one row per client, the latest advice and the news missed for anyone."""
+    data = _advisory()
+    tracks = data["tracking"]
+    names = {cid: fixtures.client(cid)["name"] for cid in tracks}
+    keys = next(iter(tracks.values()))["summary"].keys()
+    summary = {k: sum(t["summary"][k] for t in tracks.values()) for k in keys}
+    agents = []
+    for i, a in enumerate(next(iter(tracks.values()))["agents"]):
+        mine = [t["agents"][i] for t in tracks.values()]
+        n = len(mine)
+        agents.append(
+            {
+                "id": a["id"],
+                "name": a["name"],
+                "name_vi": a["name_vi"],
+                "score": round(sum(x["score"] for x in mine) / n),
+                "trend": [round(sum(x["trend"][j] for x in mine) / n, 3) for j in range(len(a["trend"]))],
+                "by_client": [{"client": names[c], "score": t["agents"][i]["score"]} for c, t in tracks.items()],
+            }
+        )
+    clients = [
+        {
+            "id": cid,
+            "name": names[cid],
+            **t["summary"],
+            "scores": {a["id"]: a["score"] for a in t["agents"]},
+            "alerts_opened": t["engagement"]["alerts_opened"],
+        }
+        for cid, t in tracks.items()
+    ]
+    advice = sorted(
+        ({**x, "client": names[cid]} for cid, t in tracks.items() for x in t["advice"]),
+        key=lambda x: x["date"],
+        reverse=True,
+    )
+    missed: dict = {}
+    for cid, t in tracks.items():
+        for n in t["missed_news"]:
+            m = missed.setdefault(n["title"], {**n, "impact": 0.0, "clients": []})
+            m["impact"] += n["impact"]
+            m["clients"].append(names[cid])
+    months = next(iter(tracks.values()))["engagement"]["months"]
+    engagement = {
+        "months": months,
+        **{
+            k: [round(sum(t["engagement"][k][j] for t in tracks.values()) / len(tracks)) for j in range(len(months))]
+            for k in ("minutes", "days")
+        },
+    }
+    return JSONResponse(
+        {
+            "summary": summary,
+            "agents": agents,
+            "clients": clients,
+            "advice": advice,
+            "missed_news": sorted(missed.values(), key=lambda m: m["impact"]),
+            "engagement": engagement,
+            "as_of": data["as_of"],
+            "note": data["note"],
+        }
+    )
+
+
+@lru_cache(maxsize=1)
+def _views() -> dict:
+    return json.loads((DATA / "views.json").read_text(encoding="utf-8"))
+
+
+async def views(request: Request) -> JSONResponse:
+    """House views beside the headlines (data/views.json, mock): what research houses expect, and
+    which holdings each is about — the page matches them to the client's own."""
+    return JSONResponse(_views())
+
+
 async def reset(request: Request) -> JSONResponse:
     store.reset()
     return JSONResponse({"reset": True})
@@ -97,6 +173,8 @@ app = Starlette(
         Route("/api/scenarios", scenarios),
         Route("/api/review", reviews),
         Route("/api/advisory", advisory),
+        Route("/api/advisory/all", advisory_all),
+        Route("/api/views", views),
         Route("/api/reset", reset, methods=["POST"]),
         # the sample statements a demo uploads
         Mount("/samples", app=StaticFiles(directory=DATA / "samples"), name="samples"),

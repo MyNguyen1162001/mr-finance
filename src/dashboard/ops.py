@@ -238,7 +238,8 @@ def liquidity(holdings: list, profile: dict) -> dict:
 
 @op
 def cashflow(holdings: list, transactions: list, profile: dict, months: int = 12) -> dict:
-    """The next months' money in and out (see dashboard/_calendar.py), and the large payments."""
+    """The past year's money in and out as it happened, this month and the next months' forecast
+    (see dashboard/_calendar.py), and the large payments."""
     mk = fixtures.market()
     big = max(500 * TR, 3 * profile["spending_monthly"])
     return {"cashflow": _calendar.build(holdings, transactions, profile["events"], mk["as_of"], months, big, mk)}

@@ -40,9 +40,9 @@ every AI step takes its rule path, so the demo runs anywhere. `MF_AI=on|off|auto
 
 | Page | What it shows | The graph behind it |
 |---|---|---|
-| **Tổng quan** | net worth and its month change, the trust mix, allocation, P&L against the benchmark, the drawdown limit against a stress estimate, concentration, liquidity in months, a 12–36 month cash-flow calendar, the top alerts | `dashboard_flow` |
-| **Kết nối dữ liệu** | three tiers of sources, every holding with its trust label; upload a statement (PDF, Excel, CSV); declare by chat | `consolidate_flow`, `statement_flow`, `declare_flow` |
-| **Cảnh báo** | 14 policies, macro moves and infrastructure projects scored on the client's holdings: impact = exposure × sensitivity × probability, with sources | `alerts_flow` |
+| **Tổng quan** | net worth and its month change, the trust mix, allocation, P&L against the benchmark, the drawdown limit against a stress estimate, concentration, liquidity in months, the past 6 months' cash flow and a 12–36 month forecast (lighter), the top alerts | `dashboard_flow` |
+| **Kết nối dữ liệu** | three tiers of sources, every holding grouped by asset class (purchase date, price, cost, profit) with its trust label; upload a statement (PDF, Excel, CSV); declare by chat | `consolidate_flow`, `statement_flow`, `declare_flow` |
+| **Cảnh báo** | 14 policies, macro moves and infrastructure projects scored on the client's holdings: impact = exposure × sensitivity × probability, with sources; house views (research houses' forecasts, mock) matched to the holdings | `alerts_flow` |
 | **Bài test rủi ro** | 8–12 adaptive situational questions; tolerance against capacity; one of five personas | `risk_flow` |
 | **Kịch bản** | 9 life events and 5 stress tests on the client's own data, each with a light and a heavy option | `scenario_flow` |
 | **RM duyệt** | the queue of options waiting for an RM's approval | `review_flow` |

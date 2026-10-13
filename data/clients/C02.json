@@ -1084,34 +1084,40 @@
     {
      "ticker": "TCB",
      "qty": 300000,
-     "avg_price": 18000
+     "avg_price": 18000,
+     "bought": "2019-05-06"
     },
     {
      "ticker": "VCB",
      "qty": 60000,
-     "avg_price": 55000
+     "avg_price": 55000,
+     "bought": "2021-10-12"
     },
     {
      "ticker": "MBB",
      "qty": 200000,
-     "avg_price": 17000
+     "avg_price": 17000,
+     "bought": "2020-04-15"
     },
     {
      "ticker": "VHM",
      "qty": 50000,
-     "avg_price": 48000
+     "avg_price": 48000,
+     "bought": "2022-12-01"
     }
    ],
    "bonds": [
     {
      "code": "SMR12501",
      "qty": 30000,
-     "avg_price": 100000
+     "avg_price": 100000,
+     "bought": "2025-07-22"
     },
     {
      "code": "HBE12403",
      "qty": 20000,
-     "avg_price": 100000
+     "avg_price": 100000,
+     "bought": "2024-11-25"
     }
    ],
    "realized_ytd": 1100000000
@@ -1172,7 +1178,8 @@
      {
       "ticker": "HPG",
       "qty": 100000,
-      "avg_price": 22000
+      "avg_price": 22000,
+      "bought": "2023-01-30"
      }
     ]
    }

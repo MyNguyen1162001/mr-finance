@@ -963,27 +963,32 @@
     {
      "ticker": "FPT",
      "qty": 5000,
-     "avg_price": 110000
+     "avg_price": 110000,
+     "bought": "2024-02-27"
     },
     {
      "ticker": "SSI",
      "qty": 40000,
-     "avg_price": 26000
+     "avg_price": 26000,
+     "bought": "2025-03-11"
     },
     {
      "ticker": "DGC",
      "qty": 10000,
-     "avg_price": 105000
+     "avg_price": 105000,
+     "bought": "2024-08-19"
     },
     {
      "ticker": "MWG",
      "qty": 10000,
-     "avg_price": 50000
+     "avg_price": 50000,
+     "bought": "2025-05-06"
     },
     {
      "ticker": "HPG",
      "qty": 30000,
-     "avg_price": 26000
+     "avg_price": 26000,
+     "bought": "2026-01-15"
     }
    ],
    "bonds": [],
@@ -1000,7 +1005,8 @@
     {
      "code": "TCEF",
      "units": 30000,
-     "avg_nav": 26000
+     "avg_nav": 26000,
+     "bought": "2025-06-24"
     }
    ]
   },

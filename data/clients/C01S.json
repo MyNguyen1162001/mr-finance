@@ -546,7 +546,8 @@
     {
      "ticker": "VCB",
      "qty": 10000,
-     "avg_price": 58000
+     "avg_price": 58000,
+     "bought": "2023-08-16"
     }
    ],
    "bonds": [],

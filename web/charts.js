@@ -99,7 +99,9 @@
   }
 
   /* Money in above the line, out below it, one column pair per month; one axis. A month with a
-     large payment gets a marker and its label. */
+     large payment gets a marker and its label. A month's ``phase`` says what it is: "past" (what
+     happened, solid), "now" and "next" (forecast, lighter), with a "Hôm nay" line between. */
+  const FORECAST_OPACITY = 0.42;
   function cashflow(months, large, width) {
     // drawn at the width it is shown at: a scaled viewBox would scale its text too
     const W = Math.max(300, Math.round(width || 760)), H = W < 520 ? 220 : 260, L = 64, R = 8, T = 14, B = 30;
@@ -113,7 +115,7 @@
     const zero = T + (H - T - B) * (top / span);
     const y = (v) => zero - (H - T - B) * (v / span);
     const s = svg("svg", {viewBox: `0 0 ${W} ${H}`, class: "chart", role: "img",
-      "aria-label": `Dòng tiền ${months.length} tháng tới: vào ${vnd(months.reduce((a, m) => a + m.in, 0))}, ra ${vnd(months.reduce((a, m) => a + m.out, 0))}`});
+      "aria-label": `Dòng tiền ${months.length} tháng: vào ${vnd(months.reduce((a, m) => a + m.in, 0))}, ra ${vnd(months.reduce((a, m) => a + m.out, 0))}`});
     const grid = svg("g", {class: "grid"}, s);
     const ticks = [];
     for (let v = top; v > 0; v -= step) ticks.push(v);
@@ -127,17 +129,25 @@
     svg("line", {x1: L, x2: W - R, y1: zero, y2: zero, class: "base"}, s);
     const n = months.length, band = (W - L - R) / n, bw = Math.min(24, band * 0.62);
     const bigMonths = new Set((large || []).map(l => l.month));
+    const today = months.findIndex(m => m.phase && m.phase !== "past");
+    if (today > 0) {
+      const xx = L + band * today;
+      svg("line", {x1: xx, x2: xx, y1: T - 4, y2: H - B, class: "today"}, s);
+      const t = svg("text", {x: xx + 4, y: T + 6, "text-anchor": "start", class: "todaytext"}, s);
+      t.textContent = "Hôm nay · dự báo →";
+    }
     months.forEach((m, i) => {
       const cx = L + band * i + band / 2;
+      const fc = !!m.phase && m.phase !== "past";
       const col = svg("g", {class: "col", tabindex: "0"}, s);
       svg("rect", {x: L + band * i, y: T, width: band, height: H - T - B, class: "colhover"}, col);
       if (m.in > 0) {
         const h = zero - y(m.in);
-        svg("path", {d: roundTop(cx - bw / 2, zero - h, bw, h), fill: "var(--in)"}, col);
+        svg("path", {d: roundTop(cx - bw / 2, zero - h, bw, h), fill: "var(--in)", "fill-opacity": fc ? FORECAST_OPACITY : 1}, col);
       }
       if (m.out > 0) {
         const h = y(-m.out) - zero;
-        svg("path", {d: roundBottom(cx - bw / 2, zero, bw, h), fill: "var(--out)"}, col);
+        svg("path", {d: roundBottom(cx - bw / 2, zero, bw, h), fill: "var(--out)", "fill-opacity": fc ? FORECAST_OPACITY : 1}, col);
       }
       if (bigMonths.has(m.month)) {
         const t = svg("text", {x: cx, y: y(-m.out) + 14, "text-anchor": "middle", style: "fill:var(--critical);font-weight:700"}, col);
@@ -151,7 +161,8 @@
       hover(col, () => {
         const items = m.items.slice(0, 8).map(it => `<div class="row"><span>${it.direction === "in" ? "▲" : "▼"} ${esc(it.label)}</span><span>${vnd(it.amount)}</span></div>`).join("");
         const more = m.items.length > 8 ? `<div class="muted">… và ${m.items.length - 8} khoản khác</div>` : "";
-        return `<b>${monthName(m.month)} · ròng ${vnd(m.net, true)}</b><div class="row"><span>Vào</span><span>${vnd(m.in)}</span></div><div class="row"><span>Ra</span><span>${vnd(m.out)}</span></div><hr style="border:0;border-top:1px solid var(--hair)">${items}${more}`;
+        const what = m.phase === "past" ? "thực tế" : m.phase === "now" ? "tháng này · dự báo" : m.phase ? "dự báo" : "";
+        return `<b>${monthName(m.month)}${what ? " · " + what : ""} · ròng ${vnd(m.net, true)}</b><div class="row"><span>Vào</span><span>${vnd(m.in)}</span></div><div class="row"><span>Ra</span><span>${vnd(m.out)}</span></div><hr style="border:0;border-top:1px solid var(--hair)">${items}${more}`;
       });
     });
     return s;
@@ -231,5 +242,5 @@
     return s;
   }
 
-  g.Charts = {shareBar, meter, cashflow, sparkline, columns, lines, hover, hideTip};
+  g.Charts = {FORECAST_OPACITY, shareBar, meter, cashflow, sparkline, columns, lines, hover, hideTip};
 })(window);
