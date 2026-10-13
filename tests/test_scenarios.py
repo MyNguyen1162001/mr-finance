@@ -118,3 +118,10 @@ def test_a_tried_assumption_moves_the_goal():
     base = sim("C01", "tuition")["goal"]
     dearer = sim("C01", "tuition", {"per_year": 3 * TY})["goal"]
     assert dearer["need"] > base["need"] and dearer["gap"] > base["gap"]
+
+
+def test_running_a_goal_again_with_its_own_assumptions_changes_nothing():
+    first = sim("C01", "tuition")
+    again = sim("C01", "tuition", first["params"])
+    assert again["goal"]["monthly"] == first["goal"]["monthly"]
+    assert again["goal"]["tracking"]["saving"] == first["goal"]["tracking"]["saving"] or not first["goal"]["gap"]

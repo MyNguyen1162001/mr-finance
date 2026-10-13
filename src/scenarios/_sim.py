@@ -172,7 +172,8 @@ def tuition(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     years = int(prm.get("years") or 4)
     start = int(prm.get("start_year") or (int(ev["date"][:4]) if ev else p.today.year + 2))
     fx = float(prm.get("fx_rise") if prm.get("fx_rise") is not None else 0.05)
-    month = int(ev["date"][5:7]) if ev and not prm.get("start_year") else 9
+    # the month school starts: the dated event's, kept with the other assumptions so a re-run uses it too
+    month = int(prm.get("start_month") or (ev["date"][5:7] if ev and not prm.get("start_year") else 9))
     total, with_fx = per_year * years, per_year * years * (1 + fx)
     # paid a year at a time: the reserve beyond six months of spending covers what it can, the
     # rest is saved each month until the last year falls due
@@ -196,7 +197,7 @@ def tuition(p: Pic, prm: Dict[str, Any]) -> Dict[str, Any]:
     )
     return {
         "goal": target,
-        "params": {"per_year": per_year, "years": years, "start_year": start, "fx_rise": fx},
+        "params": {"per_year": per_year, "years": years, "start_year": start, "start_month": month, "fx_rise": fx},
         "summary": [
             line(f"Tổng chi phí ({years} năm)", vnd(total)),
             line(f"Nếu tỷ giá tăng {pct(fx, digits=0)}", vnd(with_fx), "bad"),
