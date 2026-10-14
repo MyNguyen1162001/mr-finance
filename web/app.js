@@ -1157,8 +1157,9 @@
     const box = $("#tab-rm");
     const head = `<div class="tabhead"><h1>Relationship specialist</h1><p>Chuyên viên quan hệ khách hàng phụ trách bạn</p></div>`;
     const a = state.advisory;
-    const pending = state.queue.filter(q => q.status === "pending");
-    const done = state.queue.filter(q => q.status !== "pending");
+    const mine = state.queue.filter(q => q.client_id === state.client);
+    const pending = mine.filter(q => q.status === "pending");
+    const done = mine.filter(q => q.status !== "pending");
     const row = (q) => `<div class="card"><div class="ahead2"><b>${esc(q.client_name)}</b><span class="muted small">${new Date(q.created * 1000).toLocaleString("vi-VN")}</span>
         ${q.status !== "pending" ? `<span class="badge ${q.status === "approved" ? "verified" : "declared"}">${q.status === "approved" ? "Đã duyệt" : "Từ chối"}</span>` : ""}</div>
       <h3 style="margin:8px 0">${esc(q.title)}</h3>
